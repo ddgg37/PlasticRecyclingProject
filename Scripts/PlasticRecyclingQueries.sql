@@ -1,14 +1,13 @@
 
-
 SHOW VARIABLES LIKE 'secure_file_priv';
 SHOW VARIABLES LIKE 'local_infile';
 
 SET GLOBAL local_infile = 1;
 
-#Create Schema
+-- Create Schema
 CREATE SCHEMA IF NOT EXISTS dataschool_project;
 
-#Create Table
+-- Create Table
 CREATE TABLE dataschool_project.waste_collection (
 WasteProcessorId INT,
 WasteStreamId INT,
@@ -46,7 +45,7 @@ QuarterlyComments VARCHAR(255),
 MonthlyComments VARCHAR(255),
 MaterialGroup VARCHAR(80));
 
-#Import Data from csv file
+-- Import Data from csv file
 LOAD DATA LOCAL INFILE 'C:/Users/aDesktop/Development/DataSchoolProject/Data/Q100+Waste+Collectink+data+England+2024-25.csv'
 INTO TABLE dataschool_project.waste_collection
 FIELDS TERMINATED BY ','
