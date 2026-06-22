@@ -64,7 +64,13 @@ FROM authority_locations_lookup
 WHERE location_name = 'ENGLAND';
 
 -- SUM of tonnes by material
-SELECT wc.material,al.authority_convert, al.population, wc.period, ROUND(SUM(wc.tonnes_by_material), 2), CONCAT(ROUND((al.population * 100)/@England_population, 2), ' %')
+SELECT 
+	wc.material,
+    al.authority_convert, 
+    al.population, 
+    wc.period, 
+    ROUND(SUM(wc.tonnes_by_material), 2) as material_tonnes, 
+    CONCAT(ROUND((al.population * 100)/@England_population, 2), ' %') as population_percentage
 FROM dataschool_project.waste_collection_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
