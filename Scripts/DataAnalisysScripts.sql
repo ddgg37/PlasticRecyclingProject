@@ -76,7 +76,6 @@ UPDATE dataschool_project.waste_collection
 SET authority = RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''), 'Borough', ''), 'District',''), 'MBC',''), 'LB', ''), 'County', ''),'City',''),'Waste',''),'Authority',''),'WDA ()',''),'MDC ()',''),'MDC','')));
 -- #######################
 
-
 -- Authorities with maximum tonnes recycling
 Select MAX(total_tonnes) AS Tonnes, 
 material_group AS Material, 

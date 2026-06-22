@@ -1,0 +1,334 @@
+authority_id,authority_name,authority_convert,location_code,location_name,geography_type,population
+1,"Luton Borough Council",Luton,E06000032,Luton,"Unitary Authority",239090
+3,"Chesterfield Borough Council",Chesterfield,E07000034,Chesterfield,"Non-metropolitan District",106045
+4,"West Devon Borough Council","West Devon",E07000047,"West Devon","Non-metropolitan District",58923
+7,"Colchester Borough Council",Colchester,E07000071,Colchester,"Non-metropolitan District",200222
+8,"Fareham Borough Council",Fareham,E07000087,Fareham,"Non-metropolitan District",115428
+9,"Dacorum Borough Council",Dacorum,E07000096,Dacorum,"Non-metropolitan District",161420
+10,"Medway Borough Council",Medway,E06000035,Medway,"Unitary Authority",292655
+11,"Lancaster City Council",Lancaster,E07000121,Lancaster,"Non-metropolitan District",145006
+12,"South Holland District Council","South Holland",E07000140,"South Holland","Non-metropolitan District",99298
+14,"Bassetlaw District Council",Bassetlaw,E07000171,Bassetlaw,"Non-metropolitan District",124937
+16,"Woking Borough Council",Woking,E07000217,Woking,"Non-metropolitan District",105679
+17,"South Tyneside MBC","South Tyneside",E08000023,"South Tyneside","Metropolitan District",151393
+18,"Calderdale MBC",Calderdale,E08000033,Calderdale,"Metropolitan District",210929
+19,"Ealing LB",Ealing,E09000009,Ealing,"London Borough",385985
+20,"Southwark LB",Southwark,E09000028,Southwark,"London Borough",314786
+22,"Milton Keynes Council","Milton Keynes",E06000042,"Milton Keynes","Unitary Authority",305884
+25,"North East Derbyshire District Council","North East Derbyshire",E07000038,"North East Derbyshire","Non-metropolitan District",106646
+27,"Hastings Borough Council",Hastings,E07000062,Hastings,"Non-metropolitan District",91219
+28,"Rochford District Council",Rochford,E07000075,Rochford,"Non-metropolitan District",89815
+29,"Cheltenham Borough Council",Cheltenham,E07000078,Cheltenham,"Non-metropolitan District",121739
+30,"New Forest District Council","New Forest",E07000091,"New Forest","Non-metropolitan District",176116
+31,"St Albans City and District Council","St Albans",E07000240,"St Albans","Non-metropolitan District",151012
+32,"North East Lincolnshire Council","North East Lincolnshire",E06000012,"North East Lincolnshire","Unitary Authority",159911
+33,"Rossendale Borough Council",Rossendale,E07000125,Rossendale,"Non-metropolitan District",73045
+35,"Newark and Sherwood District Council","Newark and Sherwood",E07000175,"Newark and Sherwood","Non-metropolitan District",127886
+37,"East Staffordshire Borough Council","East Staffordshire",E07000193,"East Staffordshire","Non-metropolitan District",129659
+38,"Surrey County Council",Surrey,E10000030,Surrey,County,1248649
+39,"Manchester City Council MBC",Manchester,E08000003,Manchester,"Metropolitan District",589670
+40,"Barnsley MBC",Barnsley,E08000016,Barnsley,"Metropolitan District",251770
+41,"Havering LB",Havering,E09000016,Havering,"London Borough",276274
+45,"Wealden District Council",Wealden,E07000065,Wealden,"Non-metropolitan District",166908
+46,"Uttlesford District Council",Uttlesford,E07000077,Uttlesford,"Non-metropolitan District",95106
+47,"Stroud District Council",Stroud,E07000082,Stroud,"Non-metropolitan District",125680
+48,"Test Valley Borough Council","Test Valley",E07000093,"Test Valley","Non-metropolitan District",135201
+49,"Welwyn Hatfield Council","Welwyn Hatfield",E07000241,"Welwyn Hatfield","Non-metropolitan District",122819
+50,"York City Council",York,E06000014,York,"Unitary Authority",209301
+51,"Cherwell District Council",Cherwell,E07000177,Cherwell,"Non-metropolitan District",170426
+52,"Telford and Wrekin Council","Telford and Wrekin",E06000020,"Telford and Wrekin","Unitary Authority",195952
+53,"South Staffordshire Council","South Staffordshire",E07000196,"South Staffordshire","Non-metropolitan District",114423
+54,"Mole Valley District Council","Mole Valley",E07000210,"Mole Valley","Non-metropolitan District",88709
+55,"Arun District Council",Arun,E07000224,Arun,"Non-metropolitan District",170064
+56,"Stockport MBC",Stockport,E08000007,Stockport,"Metropolitan District",303929
+57,"Dudley MBC",Dudley,E08000027,Dudley,"Metropolitan District",331930
+58,"Lewisham LB",Lewisham,E09000023,Lewisham,"London Borough",301255
+59,"North Somerset Council","North Somerset",E06000024,"North Somerset","Unitary Authority",224578
+60,"Fenland District Council",Fenland,E07000010,Fenland,"Non-metropolitan District",104896
+61,"Halton Borough Council",Halton,E06000006,Halton,"Unitary Authority",131543
+62,"Derbyshire County Council",Derbyshire,E10000007,Derbyshire,County,822377
+63,"Southend-on-Sea Borough Council","Southend on Sea",E06000033,Southend-on-Sea,"Unitary Authority",185256
+64,"Worcester City Council",Worcester,E07000237,Worcester,"Non-metropolitan District",106671
+65,"Chorley Borough Council",Chorley,E07000118,Chorley,"Non-metropolitan District",120839
+66,"East Lindsey District Council","East Lindsey",E07000137,"East Lindsey","Non-metropolitan District",145183
+67,"West Oxfordshire District Council","West Oxfordshire",E07000181,"West Oxfordshire","Non-metropolitan District",120941
+70,"Surrey Heath Borough Council","Surrey Heath",E07000214,"Surrey Heath","Non-metropolitan District",94492
+71,"Mid Sussex District Council","Mid Sussex",E07000228,"Mid Sussex","Non-metropolitan District",161755
+72,"Wolverhampton MBC",Wolverhampton,E08000031,Wolverhampton,"Metropolitan District",281251
+73,"Bexley LB",Bexley,E09000004,Bexley,"London Borough",256434
+75,"Reading Borough Council",Reading,E06000038,Reading,"Unitary Authority",182907
+77,"Derby City Council",Derby,E06000015,Derby,"Unitary Authority",274149
+79,"East Sussex County Council","East Sussex",E10000011,"East Sussex",County,560882
+80,"Worcestershire County Council",Worcestershire,E10000034,Worcestershire,County,621360
+81,"East Riding of Yorkshire Council","East Riding of Yorkshire",E06000011,"East Riding of Yorkshire","Unitary Authority",355884
+82,"Ashford Borough Council",Ashford,E07000105,Ashford,"Non-metropolitan District",140936
+83,"Pendle Borough Council",Pendle,E07000122,Pendle,"Non-metropolitan District",99777
+84,"South Kesteven District Council","South Kesteven",E07000141,"South Kesteven","Non-metropolitan District",147151
+89,"Rugby Borough Council",Rugby,E07000220,Rugby,"Non-metropolitan District",122378
+91,"Greater Manchester WDA (MBC)","Greater Manchester",E11000001,"Greater Manchester (Met County)","Metropolitan County",3009664
+92,"Greenwich LB",Greenwich,E09000011,Greenwich,"London Borough",299528
+93,"Tower Hamlets LB","Tower Hamlets",E09000030,"Tower Hamlets","London Borough",331886
+95,"Bath and North East Somerset Council","Bath and North East Somerset",E06000022,"Bath and North East Somerset","Unitary Authority",200028
+96,"South Derbyshire District Council","South Derbyshire",E07000039,"South Derbyshire","Non-metropolitan District",117493
+98,"Cotswold District Council",Cotswold,E07000079,Cotswold,"Non-metropolitan District",91661
+99,"South Ribble Borough Council","South Ribble",E07000126,"South Ribble","Non-metropolitan District",116113
+100,"Harborough District Council",Harborough,E07000131,Harborough,"Non-metropolitan District",104713
+101,"Breckland Council",Breckland,E07000143,Breckland,"Non-metropolitan District",146620
+104,"Oldham MBC",Oldham,E08000004,Oldham,"Metropolitan District",251560
+105,"Doncaster MBC",Doncaster,E08000017,Doncaster,"Metropolitan District",319765
+106,"Hounslow LB",Hounslow,E09000018,Hounslow,"London Borough",299424
+108,"Cambridgeshire County Council",Cambridgeshire,E10000003,Cambridgeshire,County,710317
+109,"North Devon District Council","North Devon",E07000043,"North Devon","Non-metropolitan District",101222
+111,"Tewkesbury Borough Council",Tewkesbury,E07000083,Tewkesbury,"Non-metropolitan District",101949
+112,"Sevenoaks District Council",Sevenoaks,E07000111,Sevenoaks,"Non-metropolitan District",122748
+113,"North West Leicestershire District Council","North West Leicestershire",E07000134,"North West Leicestershire","Non-metropolitan District",111881
+114,"Norwich City Council",Norwich,E07000148,Norwich,"Non-metropolitan District",147182
+116,"Oxford City Council",Oxford,E07000178,Oxford,"Non-metropolitan District",166034
+118,"Tameside MBC",Tameside,E08000008,Tameside,"Metropolitan District",239643
+119,"Sandwell MBC",Sandwell,E08000028,Sandwell,"Metropolitan District",353860
+120,"Bromley LB",Bromley,E09000006,Bromley,"London Borough",335319
+121,"Newham LB",Newham,E09000025,Newham,"London Borough",374523
+123,"Huntingdonshire District Council",Huntingdonshire,E07000011,Huntingdonshire,"Non-metropolitan District",190619
+124,"Hartlepool Borough Council",Hartlepool,E06000001,Hartlepool,"Unitary Authority",98180
+125,"Stockton-on-Tees Borough Council","Stockton on Tees",E06000004,Stockton-on-Tees,"Unitary Authority",206800
+127,"Mid Devon District Council","Mid Devon",E07000042,"Mid Devon","Non-metropolitan District",84993
+129,"Brentwood Borough Council",Brentwood,E07000068,Brentwood,"Non-metropolitan District",79326
+130,"Basingstoke and Deane Borough Council","Basingstoke and Deane",E07000084,"Basingstoke and Deane","Non-metropolitan District",193110
+131,"Wychavon District Council",Wychavon,E07000238,Wychavon,"Non-metropolitan District",138017
+132,"Tonbridge and Malling Borough Council","Tonbridge and Malling",E07000115,"Tonbridge and Malling","Non-metropolitan District",136853
+136,"Warwickshire County Council",Warwickshire,E10000031,Warwickshire,County,632207
+137,"St Helens MBC","St Helens",E08000013,"St. Helens","Metropolitan District",188861
+138,"Gateshead MBC",Gateshead,E08000037,Gateshead,"Metropolitan District",202760
+139,"Hammersmith and Fulham LB","Hammersmith and Fulham",E09000013,"Hammersmith and Fulham","London Borough",188687
+140,"Wandsworth LB",Wandsworth,E09000032,Wandsworth,"London Borough",337655
+143,"Slough Borough Council",Slough,E06000039,Slough,"Unitary Authority",167359
+145,"Peterborough City Council",Peterborough,E06000031,Peterborough,"Unitary Authority",223655
+147,"Devon County Council",Devon,E10000008,Devon,County,842313
+148,"Epping Forest Borough Council","Epping Forest",E07000072,"Epping Forest","Non-metropolitan District",137451
+149,"Gosport Borough Council",Gosport,E07000088,Gosport,"Non-metropolitan District",82921
+150,"Malvern Hills District Council","Malvern Hills",E07000235,"Malvern Hills","Non-metropolitan District",83227
+151,"East Hertfordshire District Council","East Hertfordshire",E07000242,"East Hertfordshire","Non-metropolitan District",156875
+152,"Canterbury City Council",Canterbury,E07000106,Canterbury,"Non-metropolitan District",162100
+153,"Blackpool Borough Council",Blackpool,E06000009,Blackpool,"Unitary Authority",144191
+154,"Leicestershire County Council",Leicestershire,E10000018,Leicestershire,County,745573
+155,"Blaby District Council",Blaby,E07000129,Blaby,"Non-metropolitan District",108165
+156,"Broxtowe Borough Council",Broxtowe,E07000172,Broxtowe,"Non-metropolitan District",114565
+159,"Stratford-on-Avon District Council","Stratford on Avon",E07000221,Stratford-on-Avon,"Non-metropolitan District",146258
+161,"Sunderland City Council",Sunderland,E08000024,Sunderland,"Metropolitan District",288606
+162,"Kirklees MBC",Kirklees,E08000034,Kirklees,"Metropolitan District",447847
+166,"Portsmouth City Council",Portsmouth,E06000044,Portsmouth,"Unitary Authority",214321
+167,"Stevenage Borough Council",Stevenage,E07000243,Stevenage,"Non-metropolitan District",91774
+168,"Gravesham Borough Council",Gravesham,E07000109,Gravesham,"Non-metropolitan District",110671
+169,"Hinckley and Bosworth Borough Council","Hinckley and Bosworth",E07000132,"Hinckley and Bosworth","Non-metropolitan District",116682
+170,"Broadland District Council",Broadland,E07000144,Broadland,"Non-metropolitan District",138157
+173,"Lichfield District Council",Lichfield,E07000194,Lichfield,"Non-metropolitan District",111932
+174,"Elmbridge Borough Council",Elmbridge,E07000207,Elmbridge,"Non-metropolitan District",141926
+175,"City of London",London,E12000007,LONDON,Region,9089736
+176,"Royal Borough of Kensington and Chelsea","Kensington and Chelsea",E09000020,"Kensington and Chelsea","London Borough",144518
+180,"Darlington Borough Council",Darlington,E06000005,Darlington,"Unitary Authority",112489
+181,"Winchester City Council",Winchester,E07000094,Winchester,"Non-metropolitan District",135632
+182,"Folkestone and Hythe District Council","Folkestone and Hythe",E07000112,"Folkestone and Hythe","Non-metropolitan District",112411
+183,"Oadby and Wigston Borough Council","Oadby and Wigston",E07000135,"Oadby and Wigston","Non-metropolitan District",61695
+184,"South Norfolk Council","South Norfolk",E07000149,"South Norfolk","Non-metropolitan District",148448
+186,"Nottinghamshire County Council",Nottinghamshire,E10000024,Nottinghamshire,County,857013
+187,"Staffordshire Moorlands District Council","Staffordshire Moorlands",E07000198,"Staffordshire Moorlands","Non-metropolitan District",96651
+188,"Reigate and Banstead Borough Council","Reigate and Banstead",E07000211,"Reigate and Banstead","Non-metropolitan District",159134
+189,"Chichester District Council",Chichester,E07000225,Chichester,"Non-metropolitan District",128934
+190,"Merseyside WDA (MBC)",Merseyside,E11000002,"Merseyside (Met County)","Metropolitan County",1475541
+191,"Croydon LB",Croydon,E09000008,Croydon,"London Borough",409342
+192,"Richmond upon Thames LB","Richmond upon Thames",E09000027,"Richmond upon Thames","London Borough",196678
+196,"Warrington Borough Council",Warrington,E06000007,Warrington,"Unitary Authority",215391
+197,"Amber Valley Borough Council","Amber Valley",E07000032,"Amber Valley","Non-metropolitan District",130451
+199,"Castle Point Borough Council","Castle Point",E07000069,"Castle Point","Non-metropolitan District",90581
+200,"Thurrock Council",Thurrock,E06000034,Thurrock,"Unitary Authority",180989
+201,"East Hampshire District Council","East Hampshire",E07000085,"East Hampshire","Non-metropolitan District",129975
+202,"Hertfordshire County Council",Hertfordshire,E10000015,Hertfordshire,County,1236191
+203,"Tunbridge Wells Borough Council","Tunbridge Wells",E07000116,"Tunbridge Wells","Non-metropolitan District",119694
+204,"Fylde Borough Council",Fylde,E07000119,Fylde,"Non-metropolitan District",85447
+205,"Blackburn with Darwen Borough Council","Blackburn with Darwen",E06000008,"Blackburn with Darwen","Unitary Authority",162540
+206,"Lincoln City Council",Lincoln,E07000138,Lincoln,"Non-metropolitan District",105114
+208,"Tandridge District Council",Tandridge,E07000215,Tandridge,"Non-metropolitan District",90586
+209,"Worthing Borough Council",Worthing,E07000229,Worthing,"Non-metropolitan District",113866
+210,"Sefton MBC",Sefton,E08000014,Sefton,"Metropolitan District",286281
+211,"Newcastle-upon-Tyne City Council MBC","Newcastle upon Tyne",E08000021,"Newcastle upon Tyne","Metropolitan District",320605
+212,"Harrow LB",Harrow,E09000015,Harrow,"London Borough",270724
+216,"Erewash Borough Council",Erewash,E07000036,Erewash,"Non-metropolitan District",114253
+217,"Plymouth City Council",Plymouth,E06000026,Plymouth,"Unitary Authority",272067
+219,"Brighton and Hove Council","Brighton and Hove",E06000043,"Brighton and Hove","Unitary Authority",283870
+220,"Harlow District Council",Harlow,E07000073,Harlow,"Non-metropolitan District",98235
+221,"Hart District Council",Hart,E07000089,Hart,"Non-metropolitan District",103162
+222,"Hertsmere Borough Council",Hertsmere,E07000098,Hertsmere,"Non-metropolitan District",110212
+223,"Preston City Council",Preston,E07000123,Preston,"Non-metropolitan District",162864
+224,"West Lindsey District Council","West Lindsey",E07000142,"West Lindsey","Non-metropolitan District",99208
+227,"Gedling Borough Council",Gedling,E07000173,Gedling,"Non-metropolitan District",120179
+229,"Staffordshire County Council",Staffordshire,E10000028,Staffordshire,County,907153
+230,"Bolton MBC",Bolton,E08000001,Bolton,"Metropolitan District",310085
+231,"Leeds City Council MBC",Leeds,E08000035,Leeds,"Metropolitan District",845189
+232,"Barnet LB",Barnet,E09000003,Barnet,"London Borough",405050
+233,"Lambeth LB",Lambeth,E09000022,Lambeth,"London Borough",316920
+235,"South Gloucestershire Council","South Gloucestershire",E06000025,"South Gloucestershire","Unitary Authority",306332
+238,"Derbyshire Dales District Council","Derbyshire Dales",E07000035,"Derbyshire Dales","Non-metropolitan District",71757
+240,"Lewes District Council",Lewes,E07000063,Lewes,"Non-metropolitan District",102363
+241,"Tendring District Council",Tendring,E07000076,Tendring,"Non-metropolitan District",156759
+242,"Forest of Dean District Council","Forest of Dean",E07000080,"Forest of Dean","Non-metropolitan District",89753
+243,"Rushmoor Borough Council",Rushmoor,E07000092,Rushmoor,"Non-metropolitan District",105751
+244,"Bromsgrove District Council",Bromsgrove,E07000234,Bromsgrove,"Non-metropolitan District",101685
+245,"Three Rivers District Council","Three Rivers",E07000102,"Three Rivers","Non-metropolitan District",95807
+246,"Isle of Wight Council","Isle of Wight",E06000046,"Isle of Wight","Unitary Authority",141660
+247,"West Lancashire Borough Council","West Lancashire",E07000127,"West Lancashire","Non-metropolitan District",121995
+249,"Rushcliffe Borough Council",Rushcliffe,E07000176,Rushcliffe,"Non-metropolitan District",126736
+250,"Newcastle-under-Lyme Borough Council","Newcastle under Lyme",E07000195,Newcastle-under-Lyme,"Non-metropolitan District",127727
+251,"Epsom and Ewell Borough Council","Epsom and Ewell",E07000208,"Epsom and Ewell","Non-metropolitan District",83288
+252,"West Sussex County Council","West Sussex",E10000032,"West Sussex",County,915037
+253,"Rochdale MBC",Rochdale,E08000005,Rochdale,"Metropolitan District",235561
+254,"Rotherham MBC",Rotherham,E08000018,Rotherham,"Metropolitan District",276595
+255,"Birmingham City Council",Birmingham,E08000025,Birmingham,"Metropolitan District",1183618
+256,"Sutton LB",Sutton,E09000029,Sutton,"London Borough",214525
+259,"Redditch Borough Council",Redditch,E07000236,Redditch,"Non-metropolitan District",87847
+260,"Lancashire County Council",Lancashire,E10000017,Lancashire,County,1294914
+261,"Lincolnshire County Council",Lincolnshire,E10000019,Lincolnshire,County,789502
+262,"Nottingham City Council",Nottingham,E06000018,Nottingham,"Unitary Authority",331077
+263,"South Oxfordshire District Council","South Oxfordshire",E07000179,"South Oxfordshire","Non-metropolitan District",156470
+265,"Stoke-on-Trent City Council","Stoke on Trent",E06000021,Stoke-on-Trent,"Unitary Authority",270425
+266,"Runnymede Borough Council",Runnymede,E07000212,Runnymede,"Non-metropolitan District",92118
+267,"Crawley Borough Council",Crawley,E07000226,Crawley,"Non-metropolitan District",124008
+268,"Trafford MBC",Trafford,E08000009,Trafford,"Metropolitan District",241025
+269,"Solihull MBC",Solihull,E08000029,Solihull,"Metropolitan District",221242
+270,"Enfield LB",Enfield,E09000010,Enfield,"London Borough",327434
+272,"Bracknell Forest Borough Council","Bracknell Forest",E06000036,"Bracknell Forest","Unitary Authority",130806
+274,"Bolsover District Council",Bolsover,E07000033,Bolsover,"Non-metropolitan District",83773
+276,"Wyre Forest District Council","Wyre Forest",E07000239,"Wyre Forest","Non-metropolitan District",103913
+277,"Hyndburn Borough Council",Hyndburn,E07000120,Hyndburn,"Non-metropolitan District",86058
+278,"North Kesteven District Council","North Kesteven",E07000139,"North Kesteven","Non-metropolitan District",122468
+282,"Ipswich Borough Council",Ipswich,E07000202,Ipswich,"Non-metropolitan District",140274
+283,"Waverley Borough Council",Waverley,E07000216,Waverley,"Non-metropolitan District",134284
+284,"North Warwickshire Borough Council","North Warwickshire",E07000218,"North Warwickshire","Non-metropolitan District",67117
+285,"Hillingdon LB",Hillingdon,E09000017,Hillingdon,"London Borough",329185
+287,"Windsor and Maidenhead Borough Council","Windsor and Maidenhead",E06000040,"Windsor and Maidenhead","Unitary Authority",158943
+289,"High Peak Borough Council","High Peak",E07000037,"High Peak","Non-metropolitan District",91959
+291,"Eastbourne Borough Council",Eastbourne,E07000061,Eastbourne,"Non-metropolitan District",104259
+292,"Gloucestershire County Council",Gloucestershire,E10000013,Gloucestershire,County,669380
+293,"Dartford Borough Council",Dartford,E07000107,Dartford,"Non-metropolitan District",125011
+294,"Ribble Valley Borough Council","Ribble Valley",E07000124,"Ribble Valley","Non-metropolitan District",65794
+298,"Warwick District Council",Warwick,E07000222,Warwick,"Non-metropolitan District",154889
+300,"Bury MBC",Bury,E08000002,Bury,"Metropolitan District",198921
+301,"Brent LB",Brent,E09000005,Brent,"London Borough",352976
+302,"Merton LB",Merton,E09000024,Merton,"London Borough",218539
+305,"East Devon District Council","East Devon",E07000040,"East Devon","Non-metropolitan District",158239
+307,"Rother District Council",Rother,E07000064,Rother,"Non-metropolitan District",96133
+308,"Gloucester City Council",Gloucester,E07000081,Gloucester,"Non-metropolitan District",138598
+309,"Maidstone Borough Council",Maidstone,E07000110,Maidstone,"Non-metropolitan District",187767
+310,"Wyre Borough Council",Wyre,E07000128,Wyre,"Non-metropolitan District",118743
+311,"Leicester City Council",Leicester,E06000016,Leicester,"Unitary Authority",388348
+312,"Great Yarmouth Borough Council","Great Yarmouth",E07000145,"Great Yarmouth","Non-metropolitan District",100529
+314,"Oxfordshire County Council",Oxfordshire,E10000025,Oxfordshire,County,763218
+315,"Salford City Council MBC",Salford,E08000006,Salford,"Metropolitan District",294348
+316,"Sheffield City Council",Sheffield,E08000019,Sheffield,"Metropolitan District",582493
+317,"Coventry City Council",Coventry,E08000026,Coventry,"Metropolitan District",369026
+318,"Hackney LB",Hackney,E09000012,Hackney,"London Borough",266758
+319,"Waltham Forest LB","Waltham Forest",E09000031,"Waltham Forest","London Borough",279737
+321,"East Cambridgeshire District Council","East Cambridgeshire",E07000009,"East Cambridgeshire","Non-metropolitan District",92906
+322,"Redcar and Cleveland Borough Council","Redcar and Cleveland",E06000003,"Redcar and Cleveland","Unitary Authority",139228
+323,"South Hams District Council","South Hams",E07000044,"South Hams","Non-metropolitan District",92148
+325,"Basildon District Council",Basildon,E07000066,Basildon,"Non-metropolitan District",193632
+326,"Kingston-upon-Hull City Council","Kingston upon Hull",NULL,NULL,NULL,NULL
+327,"Swale Borough Council",Swale,E07000113,Swale,"Non-metropolitan District",158379
+328,"Rutland County Council",Rutland,E06000017,Rutland,"Unitary Authority",41443
+329,"Kings Lynn and West Norfolk Borough Council","Kings Lynn and West Norfolk",NULL,NULL,NULL,NULL
+331,"Vale of White Horse District Council","Vale of White Horse",E07000180,"Vale of White Horse","Non-metropolitan District",149347
+333,"Suffolk County Council",Suffolk,E10000029,Suffolk,County,786231
+334,"Wigan MBC",Wigan,E08000010,Wigan,"Metropolitan District",344922
+335,"Knowsley MBC",Knowsley,E08000011,Knowsley,"Metropolitan District",162565
+336,"Walsall MBC",Walsall,E08000030,Walsall,"Metropolitan District",295678
+337,"Islington LB",Islington,E09000019,Islington,"London Borough",223024
+340,"West Berkshire District Council","West Berkshire",E06000037,"West Berkshire","Unitary Authority",165112
+342,"Middlesbrough Borough Council",Middlesbrough,E06000002,Middlesbrough,"Unitary Authority",156161
+344,"Torridge District Council",Torridge,E07000046,Torridge,"Non-metropolitan District",69841
+346,"Chelmsford Borough Council",Chelmsford,E07000070,Chelmsford,"Non-metropolitan District",188803
+347,"Eastleigh Borough Council",Eastleigh,E07000086,Eastleigh,"Non-metropolitan District",142933
+348,"Herefordshire Council",Herefordshire,NULL,NULL,NULL,NULL
+349,"Broxbourne Borough Council",Broxbourne,E07000095,Broxbourne,"Non-metropolitan District",101900
+350,"Kent County Council",Kent,E10000016,Kent,County,1639029
+351,"Ashfield District Council",Ashfield,E07000170,Ashfield,"Non-metropolitan District",129572
+352,"Mid Suffolk and Babergh District Council","Mid Suffolk and Babergh",NULL,NULL,NULL,NULL
+353,"Nuneaton and Bedworth Borough Council","Nuneaton and Bedworth",E07000219,"Nuneaton and Bedworth","Non-metropolitan District",141565
+355,"Wirral MBC",Wirral,E08000015,Wirral,"Metropolitan District",328873
+356,"North Tyneside Council","North Tyneside",E08000022,"North Tyneside","Metropolitan District",215025
+357,"Bradford City MDC (MBC)",Bradford,E08000032,Bradford,"Metropolitan District",563605
+358,"Western Riverside Waste Authority","Western Riverside",NULL,NULL,NULL,NULL
+359,"East London Waste Authority","East London",NULL,NULL,NULL,NULL
+360,"North London Waste Authority","North London",NULL,NULL,NULL,NULL
+361,"West London Waste Authority","West London",NULL,NULL,NULL,NULL
+362,"Redbridge LB",Redbridge,E09000026,Redbridge,"London Borough",321231
+363,"Wokingham Council",Wokingham,E06000041,Wokingham,"Unitary Authority",187200
+367,"Torbay Council",Torbay,E06000027,Torbay,"Unitary Authority",140126
+368,"Maldon District Council",Maldon,E07000074,Maldon,"Non-metropolitan District",69131
+369,"Havant Borough Council",Havant,E07000090,Havant,"Non-metropolitan District",126985
+370,"North Hertfordshire District Council","North Hertfordshire",E07000099,"North Hertfordshire","Non-metropolitan District",137201
+371,"Dover District Council",Dover,E07000108,Dover,"Non-metropolitan District",119768
+372,"Charnwood Borough Council",Charnwood,E07000130,Charnwood,"Non-metropolitan District",188385
+373,"Norfolk County Council",Norfolk,E10000020,Norfolk,County,940359
+374,"Mansfield District Council",Mansfield,E07000174,Mansfield,"Non-metropolitan District",113138
+376,"Cannock Chase Council","Cannock Chase",E07000192,"Cannock Chase","Non-metropolitan District",104088
+377,"Swindon Borough Council",Swindon,E06000030,Swindon,"Unitary Authority",243875
+378,"Wakefield City MDC",Wakefield,E08000036,Wakefield,"Metropolitan District",367666
+379,"Camden LB",Camden,E09000007,Camden,"London Borough",216943
+380,"Westminster City Council",Westminster,E09000033,Westminster,"London Borough",209996
+383,"Exeter City Council",Exeter,E07000041,Exeter,"Non-metropolitan District",138399
+385,"Southampton City Council",Southampton,E06000045,Southampton,"Unitary Authority",259424
+386,"Watford Borough Council",Watford,E07000103,Watford,"Non-metropolitan District",107171
+387,"North Lincolnshire Council","North Lincolnshire",E06000013,"North Lincolnshire","Unitary Authority",171336
+388,"Melton Borough Council",Melton,E07000133,Melton,"Non-metropolitan District",54052
+389,"North Norfolk District Council","North Norfolk",E07000147,"North Norfolk","Non-metropolitan District",103217
+392,"Stafford Borough Council",Stafford,E07000197,Stafford,"Non-metropolitan District",141556
+393,"Guildford Borough Council",Guildford,E07000209,Guildford,"Non-metropolitan District",151359
+394,"Adur District Council",Adur,E07000223,Adur,"Non-metropolitan District",64889
+395,"Haringey LB",Haringey,E09000014,Haringey,"London Borough",263850
+397,"Bristol City Council",Bristol,NULL,NULL,NULL,NULL
+399,"Council of the Isles of Scilly","the Isles of Scilly",NULL,NULL,NULL,NULL
+400,"Teignbridge District Council",Teignbridge,E07000045,Teignbridge,"Non-metropolitan District",138548
+402,"Braintree District Council",Braintree,E07000067,Braintree,"Non-metropolitan District",164304
+403,"Essex County Council",Essex,E10000012,Essex,County,1563365
+404,"Hampshire County Council",Hampshire,E10000014,Hampshire,County,1447214
+405,"Thanet District Council",Thanet,E07000114,Thanet,"Non-metropolitan District",142691
+406,"Burnley Borough Council",Burnley,E07000117,Burnley,"Non-metropolitan District",99233
+407,"Boston Borough Council",Boston,E07000136,Boston,"Non-metropolitan District",71080
+409,"Tamworth Borough Council",Tamworth,E07000199,Tamworth,"Non-metropolitan District",81117
+410,"Spelthorne Borough Council",Spelthorne,E07000213,Spelthorne,"Non-metropolitan District",107074
+411,"Horsham District Council",Horsham,E07000227,Horsham,"Non-metropolitan District",151521
+412,"Liverpool City Council",Liverpool,E08000012,Liverpool,"Metropolitan District",508961
+413,"Barking and Dagenham LB","Barking and Dagenham",E09000002,"Barking and Dagenham","London Borough",232747
+414,"Royal Borough of Kingston upon Thames ","Kingston upon Thames",E09000021,"Kingston upon Thames","London Borough",172692
+518,Wiltshire,Wiltshire,E06000054,Wiltshire,"Unitary Authority",523700
+519,Cornwall,Cornwall,E06000052,Cornwall,"Unitary Authority",583289
+520,Bedford,Bedford,E06000055,Bedford,"Unitary Authority",194976
+521,"Central Bedfordshire","Central Bedfordshire",E06000056,"Central Bedfordshire","Unitary Authority",315877
+522,Shropshire,Shropshire,E06000051,Shropshire,"Unitary Authority",332455
+523,"Cheshire East","Cheshire East",E06000049,"Cheshire East","Unitary Authority",421298
+524,"Cheshire West and Chester","Cheshire West and Chester",E06000050,"Cheshire West and Chester","Unitary Authority",371652
+525,Northumberland,Northumberland,E06000057,Northumberland,"Unitary Authority",331420
+526,"County Durham",Durham,NULL,NULL,NULL,NULL
+553,"Cambridge City and South Cambs Councils","Cambridge and South Cambs s",NULL,NULL,NULL,NULL
+558,"East Suffolk Council","East Suffolk",E07000244,"East Suffolk","Non-metropolitan District",249664
+559,"West Suffolk Council","West Suffolk",E07000245,"West Suffolk","Non-metropolitan District",188485
+560,"Bournemouth, Christchurch and Poole Council","Bournemouth, Christchurch and Poole",E06000058,"Bournemouth, Christchurch and Poole","Unitary Authority",408967
+561,"Dorset Council",Dorset,E06000059,Dorset,"Unitary Authority",389947
+563,"Buckinghamshire Council",Buckinghamshire,E06000060,Buckinghamshire,"Unitary Authority",578772
+565,"North Northamptonshire","North Northamptonshire",E06000061,"North Northamptonshire","Unitary Authority",373871
+566,"West Northamptonshire","West Northamptonshire",E06000062,"West Northamptonshire","Unitary Authority",439811
+567,"Westmorland and Furness Council","Westmorland and Furness",E06000064,"Westmorland and Furness","Unitary Authority",230185
+568,"Cumberland Council",Cumberland,E06000063,Cumberland,"Unitary Authority",280495
+569,"North Yorkshire Council","North Yorkshire",E06000065,"North Yorkshire","Unitary Authority",635270
+570,"Somerset Council",Somerset,E06000066,Somerset,"Unitary Authority",588328
+NULL,"ENGLAND AND WALES","ENGLAND AND WALES",K04000001,"ENGLAND AND WALES",Country,61806682
+NULL,ENGLAND,ENGLAND,E92000001,ENGLAND,Country,58620101
+NULL,"NORTH EAST","NORTH EAST",E12000001,"NORTH EAST",Region,2760678
+NULL,"NORTH WEST","NORTH WEST",E12000002,"NORTH WEST",Region,7737414
+NULL,"YORKSHIRE AND THE HUMBER","YORKSHIRE AND THE HUMBER",E12000003,"YORKSHIRE AND THE HUMBER",Region,5672962
+NULL,"EAST MIDLANDS","EAST MIDLANDS",E12000004,"EAST MIDLANDS",Region,5063164
+NULL,"WEST MIDLANDS","WEST MIDLANDS",E12000005,"WEST MIDLANDS",Region,6187204
+NULL,EAST,EAST,E12000006,EAST,Region,6576306
+NULL,LONDON,LONDON,E12000007,LONDON,Region,9089736
+NULL,"SOUTH EAST","SOUTH EAST",E12000008,"SOUTH EAST",Region,9642942
+NULL,"SOUTH WEST","SOUTH WEST",E12000009,"SOUTH WEST",Region,5889695
+NULL,WALES,WALES,W92000004,WALES,Country,3186581
