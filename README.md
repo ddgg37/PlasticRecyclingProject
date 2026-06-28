@@ -12,11 +12,11 @@
 
 ## Data Origin
 
-- <a href="https://www.data.gov.uk/dataset/0e0c12d8-24f6-461f-b4bc-f6d6a5bf2de5/waste-data-flow">Waste Recycling Data</a>
+- <a href="https://www.data.gov.uk/dataset/0e0c12d8-24f6-461f-b4bc-f6d6a5bf2de5/waste-data-flow" target="_blank">Waste Recycling Data</a>
 
-- <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland%26lang%3Dde%26lang%3Dde">The UK Population Data</a>
+- <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland%26lang%3Dde%26lang%3Dde" target="_blank">The UK Population Data</a>
 
-- <a href="https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2025-boundaries-uk-bfc/about">Local Authority District</a>
+- <a href="https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2025-boundaries-uk-bfc/about" target="_blank">Local Authority District</a>
 
 
 
