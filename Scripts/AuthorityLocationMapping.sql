@@ -11,7 +11,7 @@ CREATE TABLE authority_locations_lookup (
     population INT
 );
 
--- Populate Table from waste_collection_summary
+-- Populate Table from waste_collection_2025_summary
 SELECT DISTINCT( 
 	LTRIM(RTRIM(
 	REGEXP_REPLACE(
@@ -56,7 +56,7 @@ SELECT DISTINCT(
 		''
 	)    
 ))) as authority
-FROM dataschool_project.waste_collection_summary;
+FROM dataschool_project.waste_collection_2025_summary;
 #where authority like '%Scilly%';
 #where authority like '%kensington%';
 
@@ -106,14 +106,49 @@ SELECT DISTINCT(
 		''
 	)    
 	))), authority_id, authority 
-FROM dataschool_project.waste_collection_summary
-WHERE authority_id != 0; -- authority id 0 is empty record
+FROM dataschool_project.waste_collection_2025_summary;
+
+-- We update location code, name, geography type and  population
+UPDATE dataschool_project.authority_locations_lookup al
+JOIN dataschool_project.population_uk_by_location_2024 pe 
+ON al.authority_convert = pe.location_name
+SET
+	al.location_name = pe.location_name,
+    al.location_code = pe.location_code,
+    al.geography_type = pe.geography_type,
+    al.population = pe.population; 
+
+-- ###Export Data for Comparison
+SELECT
+    'authority_id',
+    'authority_name',
+    'authority_convert',
+    'location_code',
+    'location_name',
+    'geography_type',
+    'population'
+UNION ALL
+SELECT
+    authority_id,
+    authority_name,
+    authority_convert,
+    location_code,
+    location_name,
+    geography_type,
+    population
+FROM dataschool_project.authority_locations_lookup
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/ExportAuthorityLocationsLookup.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
 -- Not sure if we need it: We add only Countries and the Regions for later calculations
 #INSERT INTO dataschool_project.authority_locations_lookup (location_name,location_code,geography_type,population, authority_convert, authority_name)
 #SELECT location_name,location_code,geography_type,population, location_name, location_name 
 #FROM dataschool_project.population_england_wales_by_location 
 #WHERE geography_type = 'Country' OR geography_type = 'Region';
+
+-- ###########################################################################################
 
 -- Lets check location lookup population, location name and code, 
 #SELECT al.location_name, al.location_code,pe.location_code,pe.location_name,pe.geography_type,pe.population 
@@ -145,34 +180,13 @@ SELECT count(distinct(pe.location_code))
 FROM dataschool_project.population_england_wales_by_location pe; -- 357
 
 SELECT count(distinct(wc.authority_id)) 
-FROM dataschool_project.waste_collection_summary wc; -- 321
+FROM dataschool_project.waste_collection_2025_summary wc; -- 321
 
 SELECT count(distinct(l2.lad25_code)) 
 FROM dataschool_project.lad_dec_2025 l2; -- 361
 
 SELECT count(distinct(al.authority_convert)) 
 FROM dataschool_project.authority_locations_lookup al; -- 321
-
--- We update location code, name, geography type and  population
-UPDATE dataschool_project.authority_locations_lookup al
-JOIN dataschool_project.population_england_wales_by_location pe 
-ON al.authority_convert = pe.location_name
-SET
-	al.location_name = pe.location_name,
-    al.location_code = pe.location_code,
-    al.geography_type = pe.geography_type,
-    al.population = pe.population; 
-
--- ###########################################################################################
-
--- Export Data for Comparison
-SELECT * 
-FROM dataschool_project.authority_locations_lookup
-WHERE geography_type IS NULL
-INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/outputLocationsNullGeography.csv'
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n';
 
 -- Other queries
 SELECT * FROM dataschool_project.authority_locations_lookup;
@@ -193,33 +207,9 @@ Select distinct(authority), authority_id
 from dataschool_project.waste_collection;
 
 -- ###############Clean up of special characters
--- char 13 is return character
-SET @character13 = CHAR(13);
--- char 10 is line feed
-SET @character10 = CHAR(10);
--- char 9 is tab
-SET @character9 = CHAR(9);
--- char 34 is tab
-SET @character34 = CHAR(34);
-
--- This query shows what character contains in MaterialGroup
-SELECT Authority, 
-CASE
-	WHEN Authority LIKE CONCAT('%', @character13, '%') THEN 'Return'
-	WHEN Authority LIKE CONCAT('%', @character10, '%') THEN 'Line Feed'
-	WHEN Authority LIKE CONCAT('%', @character9, '%') THEN 'Tab'
-    WHEN Authority LIKE CONCAT('%', @character34, '%') THEN 'Double Quotes'
-    ELSE 'Empty'
-END  
-FROM dataschool_project.waste_collection
-WHERE Authority LIKE CONCAT('%', @character13, '%') OR 
-	Authority LIKE CONCAT('%', @character10, '%') OR 
-	Authority LIKE CONCAT('%', @character9, '%') OR 
-    Authority LIKE CONCAT('%', @character34, '%'); 
 
 Select count(distinct(authority))
-from dataschool_project.waste_collection; -- 322
-
+from dataschool_project.waste_collection_2025; -- 322
 
 -- ###############UTILITIES
 
