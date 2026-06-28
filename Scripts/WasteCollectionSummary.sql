@@ -16,7 +16,9 @@ total_tonnes FLOAT,
 tonnes_by_material FLOAT,
 material_group VARCHAR(80),
 material_id INT,
-material VARCHAR(50)
+material VARCHAR(50),
+tonnes_material FLOAT,
+population_percentage FLOAT
 );
 
 INSERT INTO waste_collection_summary
@@ -41,6 +43,23 @@ SELECT
 FROM dataschool_project.waste_collection
 where national_facility_id != 0;
 
+-- We store this variable to usie it inm next query 
+SELECT population 
+INTO @England_population
+FROM authority_locations_lookup 
+WHERE location_name = 'ENGLAND';
+
+UPDATE waste_collection_summary wc
+JOIN dataschool_project.authority_locations_lookup al
+ON wc.authority_id = al.authority_id 
+SET wc.tonnes_material = ROUND(SUM(wc.tonnes_by_material), 2),
+	wc.population_percentage = ROUND((al.population * 100)/@England_population, 2);
+
+-- ###################################################################
+
+SELECT distinct(authority)  
+FROM dataschool_project.waste_collection_summary;
+
 -- Data Analisys
 SELECT DISTINCT(material),material_group,authority, period_id, period, tonnes_by_material, total_tonnes 
 FROM dataschool_project.waste_collection_summary
@@ -57,11 +76,11 @@ ON wc.authority_id = al.authority_id
 WHERE TRIM(wc.material) != ''
 GROUP BY wc.material,wc.authority, wc.period_id, wc.period, al.population;
 
--- We store this variable to usie it inm next query 
-SELECT population 
-INTO @England_population
-FROM authority_locations_lookup 
-WHERE location_name = 'ENGLAND';
+SELECT wc.authority_id, wc.authority, wc.total_tonnes 
+FROM dataschool_project.waste_collection_summary wc
+JOIN dataschool_project.authority_locations_lookup al
+ON wc.authority = al.authority_name;
+
 
 -- SUM of tonnes by material
 SELECT 
@@ -70,7 +89,7 @@ SELECT
     al.population, 
     wc.period, 
     ROUND(SUM(wc.tonnes_by_material), 2) as material_tonnes, 
-    CONCAT(ROUND((al.population * 100)/@England_population, 2), ' %') as population_percentage
+    ROUND((al.population * 100)/@England_population, 2) as population_percentage
 FROM dataschool_project.waste_collection_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
