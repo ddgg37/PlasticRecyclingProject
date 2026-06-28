@@ -1,5 +1,5 @@
 
-CREATE TABLE waste_collection_summary (
+CREATE TABLE waste_collection_2025_summary (
 waste_processor_id INT,
 authority VARCHAR(255), 
 authority_id INT,
@@ -13,15 +13,13 @@ national_facility_id INT,
 facility_name VARCHAR(80),
 facility_postCode VARCHAR(10),
 total_tonnes FLOAT,
-tonnes_by_material FLOAT,
 material_group VARCHAR(80),
 material_id INT,
 material VARCHAR(50),
-tonnes_material FLOAT,
-population_percentage FLOAT
+tonnes_by_material FLOAT
 );
 
-INSERT INTO waste_collection_summary
+INSERT INTO waste_collection_2025_summary
 SELECT 
 	waste_processor_id,
 	authority, 
@@ -36,11 +34,11 @@ SELECT
 	facility_name,
 	facility_postCode,
 	total_tonnes,
-    tonnes_by_material,
 	material_group,
 	material_id,
-	material
-FROM dataschool_project.waste_collection
+	material,
+	tonnes_by_material
+FROM dataschool_project.waste_collection_2025
 where national_facility_id != 0;
 
 -- We store this variable to usie it inm next query 
@@ -49,38 +47,83 @@ INTO @England_population
 FROM authority_locations_lookup 
 WHERE location_name = 'ENGLAND';
 
-UPDATE waste_collection_summary wc
-JOIN dataschool_project.authority_locations_lookup al
-ON wc.authority_id = al.authority_id 
-SET wc.tonnes_material = ROUND(SUM(wc.tonnes_by_material), 2),
-	wc.population_percentage = ROUND((al.population * 100)/@England_population, 2);
+#UPDATE waste_collection_2025_summary wc
+#JOIN dataschool_project.authority_locations_lookup al
+#ON wc.authority_id = al.authority_id 
+#SET wc.tonnes_material = ROUND(SUM(wc.tonnes_by_material), 2),
+# wc.population_percentage = ROUND((al.population * 100)/@England_population, 2);
 
 -- ###################################################################
 
+-- Export Data for Tableau
+SELECT
+	'waste_processor_id',
+	'authority', 
+	'authority_id',
+	'period',
+	'period_id',
+	'waste_stream_type_id',
+	'waste_stream_type',
+	'facility_type_id',
+	'facility_type',
+	'national_facility_id',
+	'facility_name',
+	'facility_postCode',
+	'total_tonnes',
+	'material_group',
+	'material_id',
+	'material',
+	'tonnes_by_material'
+UNION ALL
+SELECT
+	waste_processor_id,
+	authority, 
+	authority_id,
+	period,
+	period_id,
+	waste_stream_type_id,
+	waste_stream_type,
+	facility_type_id,
+	facility_type,
+	national_facility_id,
+	facility_name,
+	facility_postCode,
+	total_tonnes,
+	material_group,
+	material_id,
+	material,
+	tonnes_by_material    
+FROM dataschool_project.waste_collection_2025_summary
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/ExportFromDBWasteCollectionSummary.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+-- #####################################################################
+
 SELECT distinct(authority)  
-FROM dataschool_project.waste_collection_summary;
+FROM dataschool_project.waste_collection_2025_summary;
 
 -- Data Analisys
 SELECT DISTINCT(material),material_group,authority, period_id, period, tonnes_by_material, total_tonnes 
-FROM dataschool_project.waste_collection_summary
+FROM dataschool_project.waste_collection_2025_summary
 WHERE TRIM(material) != '';
 
-SELECT * FROM dataschool_project.waste_collection_summary 
+SELECT * FROM dataschool_project.waste_collection_2025_summary 
 WHERE TRIM(material) = ''; -- check waste stream type
 
 -- General information
 SELECT wc.material,wc.authority, wc.period_id, wc.period, SUM(wc.tonnes_by_material), al.population
-FROM dataschool_project.waste_collection_summary wc
+FROM dataschool_project.waste_collection_2025_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
 WHERE TRIM(wc.material) != ''
 GROUP BY wc.material,wc.authority, wc.period_id, wc.period, al.population;
 
 SELECT wc.authority_id, wc.authority, wc.total_tonnes 
-FROM dataschool_project.waste_collection_summary wc
+FROM dataschool_project.waste_collection_2025_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority = al.authority_name;
-
 
 -- SUM of tonnes by material
 SELECT 
@@ -90,7 +133,7 @@ SELECT
     wc.period, 
     ROUND(SUM(wc.tonnes_by_material), 2) as material_tonnes, 
     ROUND((al.population * 100)/@England_population, 2) as population_percentage
-FROM dataschool_project.waste_collection_summary wc
+FROM dataschool_project.waste_collection_2025_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
 WHERE TRIM(wc.material) != ''
@@ -112,7 +155,7 @@ CASE
 	WHEN material LIKE CONCAT('%', @character9, '%') THEN 'Tab'
     ELSE 'Empty'
 END  
-FROM dataschool_project.waste_collection_summary
+FROM dataschool_project.waste_collection_2025_summary
 WHERE material LIKE CONCAT('%', @character13, '%') OR 
 	material LIKE CONCAT('%', @character10, '%') OR 
 	material LIKE CONCAT('%', @character9, '%'); 

@@ -4,7 +4,7 @@ CREATE PROCEDURE waste_collection_table_procedure()
 BEGIN
 
 	-- Create Table
-	CREATE TABLE dataschool_project.waste_collection (
+	CREATE TABLE dataschool_project.waste_collection_2025 (
 	waste_processor_id INT,
 	waste_stream_id INT,
 	waste_processor_output_id INT,
