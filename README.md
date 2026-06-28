@@ -1,6 +1,6 @@
 # Tableau Waste Recycling Project
 
-<strong>Technology used for this project</
+## Technology used for this project
 
 - Draw.io : To create the Darabase Diagram.
 - Github : Version Control used to upload all Scripts, Resources, Tableau project and Documentation.
