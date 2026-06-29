@@ -47,7 +47,7 @@
 "60","Fenland District Council","Fenland","E07000010","Fenland","Non-metropolitan District","104896"
 "61","Halton Borough Council","Halton","E06000006","Halton","Unitary Authority","131543"
 "62","Derbyshire County Council","Derbyshire County",\N,\N,\N,\N
-"63","Southend-on-Sea Borough Council","Southend on Sea",\N,\N,\N,\N
+"63","Southend-on-Sea Borough Council","Southend on Sea","E06000033","Southend on Sea","Unitary Authority","185256"
 "64","Worcester City Council","Worcester","E07000237","Worcester","Non-metropolitan District","106671"
 "65","Chorley Borough Council","Chorley","E07000118","Chorley","Non-metropolitan District","120839"
 "66","East Lindsey District Council","East Lindsey","E07000137","East Lindsey","Non-metropolitan District","145183"
@@ -90,14 +90,14 @@
 "121","Newham LB","Newham","E09000025","Newham","London Borough","374523"
 "123","Huntingdonshire District Council","Huntingdonshire","E07000011","Huntingdonshire","Non-metropolitan District","190619"
 "124","Hartlepool Borough Council","Hartlepool","E06000001","Hartlepool","Unitary Authority","98180"
-"125","Stockton-on-Tees Borough Council","Stockton on Tees",\N,\N,\N,\N
+"125","Stockton-on-Tees Borough Council","Stockton on Tees","E06000004","Stockton on Tees","Unitary Authority","206800"
 "127","Mid Devon District Council","Mid Devon","E07000042","Mid Devon","Non-metropolitan District","84993"
 "129","Brentwood Borough Council","Brentwood","E07000068","Brentwood","Non-metropolitan District","79326"
 "130","Basingstoke and Deane Borough Council","Basingstoke and Deane","E07000084","Basingstoke and Deane","Non-metropolitan District","193110"
 "131","Wychavon District Council","Wychavon","E07000238","Wychavon","Non-metropolitan District","138017"
 "132","Tonbridge and Malling Borough Council","Tonbridge and Malling","E07000115","Tonbridge and Malling","Non-metropolitan District","136853"
 "136","Warwickshire County Council","Warwickshire County",\N,\N,\N,\N
-"137","St Helens MBC","St Helens",\N,\N,\N,\N
+"137","St Helens MBC","St Helens","E08000013","St Helens","Metropolitan District","188861"
 "138","Gateshead MBC","Gateshead","E08000037","Gateshead","Metropolitan District","202760"
 "139","Hammersmith and Fulham LB","Hammersmith and Fulham","E09000013","Hammersmith and Fulham","London Borough","188687"
 "140","Wandsworth LB","Wandsworth","E09000032","Wandsworth","London Borough","337655"
@@ -113,7 +113,7 @@
 "154","Leicestershire County Council","Leicestershire County",\N,\N,\N,\N
 "155","Blaby District Council","Blaby","E07000129","Blaby","Non-metropolitan District","108165"
 "156","Broxtowe Borough Council","Broxtowe","E07000172","Broxtowe","Non-metropolitan District","114565"
-"159","Stratford-on-Avon District Council","Stratford on Avon",\N,\N,\N,\N
+"159","Stratford-on-Avon District Council","Stratford on Avon","E07000221","Stratford on Avon","Non-metropolitan District","146258"
 "161","Sunderland City Council","Sunderland","E08000024","Sunderland","Metropolitan District","288606"
 "162","Kirklees MBC","Kirklees","E08000034","Kirklees","Metropolitan District","447847"
 "166","Portsmouth City Council","Portsmouth","E06000044","Portsmouth","Unitary Authority","214321"
@@ -177,7 +177,7 @@
 "246","Isle of Wight Council","Isle of Wight","E06000046","Isle of Wight","Unitary Authority","141660"
 "247","West Lancashire Borough Council","West Lancashire","E07000127","West Lancashire","Non-metropolitan District","121995"
 "249","Rushcliffe Borough Council","Rushcliffe","E07000176","Rushcliffe","Non-metropolitan District","126736"
-"250","Newcastle-under-Lyme Borough Council","Newcastle under Lyme",\N,\N,\N,\N
+"250","Newcastle-under-Lyme Borough Council","Newcastle under Lyme","E07000195","Newcastle under Lyme","Non-metropolitan District","127727"
 "251","Epsom and Ewell Borough Council","Epsom and Ewell","E07000208","Epsom and Ewell","Non-metropolitan District","83288"
 "252","West Sussex County Council","West Sussex County",\N,\N,\N,\N
 "253","Rochdale MBC","Rochdale","E08000005","Rochdale","Metropolitan District","235561"
@@ -189,7 +189,7 @@
 "261","Lincolnshire County Council","Lincolnshire County",\N,\N,\N,\N
 "262","Nottingham City Council","Nottingham","E06000018","Nottingham","Unitary Authority","331077"
 "263","South Oxfordshire District Council","South Oxfordshire","E07000179","South Oxfordshire","Non-metropolitan District","156470"
-"265","Stoke-on-Trent City Council","Stoke on Trent",\N,\N,\N,\N
+"265","Stoke-on-Trent City Council","Stoke on Trent","E06000021","Stoke on Trent","Unitary Authority","270425"
 "266","Runnymede Borough Council","Runnymede","E07000212","Runnymede","Non-metropolitan District","92118"
 "267","Crawley Borough Council","Crawley","E07000226","Crawley","Non-metropolitan District","124008"
 "268","Trafford MBC","Trafford","E08000009","Trafford","Metropolitan District","241025"
@@ -231,10 +231,10 @@
 "322","Redcar and Cleveland Borough Council","Redcar and Cleveland","E06000003","Redcar and Cleveland","Unitary Authority","139228"
 "323","South Hams District Council","South Hams","E07000044","South Hams","Non-metropolitan District","92148"
 "325","Basildon District Council","Basildon","E07000066","Basildon","Non-metropolitan District","193632"
-"326","Kingston-upon-Hull City Council","Kingston upon Hull",\N,\N,\N,\N
+"326","Kingston-upon-Hull City Council","Kingston upon Hull","E06000010","Kingston upon Hull","Unitary Authority","275401"
 "327","Swale Borough Council","Swale","E07000113","Swale","Non-metropolitan District","158379"
 "328","Rutland County Council","Rutland County",\N,\N,\N,\N
-"329","Kings Lynn and West Norfolk Borough Council","Kings Lynn and West Norfolk",\N,\N,\N,\N
+"329","Kings Lynn and West Norfolk Borough Council","Kings Lynn and West Norfolk","E07000146","Kings Lynn and West Norfolk","Non-metropolitan District","156206"
 "331","Vale of White Horse District Council","Vale of White Horse","E07000180","Vale of White Horse","Non-metropolitan District","149347"
 "333","Suffolk County Council","Suffolk County",\N,\N,\N,\N
 "334","Wigan MBC","Wigan","E08000010","Wigan","Metropolitan District","344922"
@@ -246,7 +246,7 @@
 "344","Torridge District Council","Torridge","E07000046","Torridge","Non-metropolitan District","69841"
 "346","Chelmsford Borough Council","Chelmsford","E07000070","Chelmsford","Non-metropolitan District","188803"
 "347","Eastleigh Borough Council","Eastleigh","E07000086","Eastleigh","Non-metropolitan District","142933"
-"348","Herefordshire Council","Herefordshire",\N,\N,\N,\N
+"348","Herefordshire Council","Herefordshire","E06000019","Herefordshire","Unitary Authority","191047"
 "349","Broxbourne Borough Council","Broxbourne","E07000095","Broxbourne","Non-metropolitan District","101900"
 "350","Kent County Council","Kent County",\N,\N,\N,\N
 "351","Ashfield District Council","Ashfield","E07000170","Ashfield","Non-metropolitan District","129572"
@@ -284,7 +284,7 @@
 "393","Guildford Borough Council","Guildford","E07000209","Guildford","Non-metropolitan District","151359"
 "394","Adur District Council","Adur","E07000223","Adur","Non-metropolitan District","64889"
 "395","Haringey LB","Haringey","E09000014","Haringey","London Borough","263850"
-"397","Bristol City Council","Bristol",\N,\N,\N,\N
+"397","Bristol City Council","Bristol","E06000023","Bristol","Unitary Authority","494399"
 "399","Council of the Isles of Scilly","Isles of Scilly","E06000053","Isles of Scilly","Unitary Authority","2366"
 "400","Teignbridge District Council","Teignbridge","E07000045","Teignbridge","Non-metropolitan District","138548"
 "402","Braintree District Council","Braintree","E07000067","Braintree","Non-metropolitan District","164304"
