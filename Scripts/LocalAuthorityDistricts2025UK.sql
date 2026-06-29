@@ -48,7 +48,7 @@ SELECT
 		)
     )) as lad_name
 FROM dataschool_project.local_authority_districts_2025
-where lad25_name like '%derbyshire%';
+where lad25_name like '%helens%';
 
 select lad25_code, lad25_name from dataschool_project.local_authority_districts_2025
 where lad25_code like 'E%';
