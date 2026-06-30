@@ -56,10 +56,7 @@ SELECT DISTINCT(
 		''
 	)    
 ))) as authority
-FROM dataschool_project.waste_collection_2025_summary 
-WHERE geography_type NOT IN ('Country', 'Region', 'County');
-#where authority like '%Scilly%';
-#where authority like '%kensington%';
+FROM dataschool_project.waste_collection_2025_summary;
 
 -- we populate authority_convert in authority_locations_lookup
 INSERT INTO authority_locations_lookup (authority_convert, authority_id, authority_name)
@@ -108,7 +105,6 @@ SELECT DISTINCT(
 	)    
 	))), authority_id, authority 
 FROM dataschool_project.waste_collection_2025_summary;
-WHERE geography_type NOT IN ('Country', 'Region', 'County');
 
 -- We update location code, name, geography type and  population
 UPDATE dataschool_project.authority_locations_lookup al
@@ -120,43 +116,11 @@ SET
     al.geography_type = pe.geography_type,
     al.population = pe.population; 
 
--- We populate all the Regions, Counties and Country
-SELECT count(al.authority_id) 
-FROM authority_locations_lookup al
-JOIN population_uk_by_location_2024 pe
-    ON al.authority_convert = pe.location_name
-#WHERE pe.geography_type IN ('Country', 'Region', 'County') AND al.location_code IS NULL;
-WHERE al.location_code IS NULL;
+UPDATE dataschool_project.authority_locations_lookup
+SET population = 0 
+WHERE location_code IS NULL;
 
-
--- We populate all the Regions, Counties and Country
-UPDATE authority_locations_lookup al
-JOIN population_uk_by_location_2024 pe
-    ON al.authority_convert = pe.location_name
-SET
-    al.location_code = pe.location_code,
-    al.geography_type = pe.geography_type,
-    al.population = pe.population
-WHERE pe.geography_type IN ('Country', 'Region', 'County');
-
-UPDATE authority_locations_lookup al
-SET
-    al.location_code = (
-        SELECT pe.location_code
-        FROM population_uk_by_location_2024 pe
-    ),
-    al.geography_type = (
-        SELECT pe.geography_type
-        FROM population_uk_by_location_2024 pe
-    ),
-    al.population = (
-        SELECT pe.population
-        FROM population_uk_by_location_2024 pe        
-    )
-WHERE al.geography_type IS NULL;
-
-
--- ###Export Data for Comparison
+-- ###Export Data for Tableau
 SELECT
     'authority_id',
     'authority_name',
@@ -181,6 +145,13 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 -- ###########################################################################################
+
+-- We populate all the Regions, Counties and Country
+SELECT count(al.authority_id) 
+FROM authority_locations_lookup al
+JOIN population_uk_by_location_2024 pe
+    ON al.authority_convert = pe.location_name
+WHERE al.location_code IS NULL;
 
 -- Lets check location lookup population, location name and code, 
 #SELECT al.location_name, al.location_code,pe.location_code,pe.location_name,pe.geography_type,pe.population 
