@@ -21,8 +21,6 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-select lad25_name from dataschool_project.local_authority_districts_2025;
-
 SELECT 
 	LTRIM(RTRIM(    
 		REGEXP_REPLACE(
@@ -47,11 +45,7 @@ SELECT
 			''
 		)
     )) as lad_name
-FROM dataschool_project.local_authority_districts_2025
-where lad25_name like '%helens%';
-
-select lad25_code, lad25_name from dataschool_project.local_authority_districts_2025
-where lad25_code like 'E%';
+FROM dataschool_project.local_authority_districts_2025;
 
 -- We are only interested on England
 UPDATE dataschool_project.local_authority_districts_2025
@@ -78,6 +72,12 @@ SET lad25_name = LTRIM(RTRIM(
 			''
 		)
     ));
+
+-- ##############################################################################
+
+
+select lad25_code, lad25_name from dataschool_project.local_authority_districts_2025
+where lad25_code like 'E%';
 
 SELECT count(distinct(lad25_code)) FROM dataschool_project.local_authority_districts_2025
 where lad25_code like 'E%'; -- 296

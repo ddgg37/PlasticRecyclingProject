@@ -40,8 +40,7 @@ SELECT LTRIM(RTRIM(
 		''
 	)
 )) as converted
-FROM dataschool_project.population_UK_by_location_2024 
-where location_name LIKE '%helens%';
+FROM dataschool_project.population_UK_by_location_2024;
 
 UPDATE dataschool_project.population_UK_by_location_2024 
 SET location_name = LTRIM(RTRIM(		
@@ -63,6 +62,11 @@ SET location_name = LTRIM(RTRIM(
 		''
 	)
 ));
+
+-- We need to update population for all these records with population NULL
+UPDATE dataschool_project.authority_locations_lookup
+SET population = 0 
+WHERE location_code IS NULL;
 
 -- #############################################################################
 
@@ -86,6 +90,9 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 -- #############################################################################
+
+-- Cleanup all the records with geography_type NULL as they are Counties we are not interested on
+#DELETE FROM dataschool_project.population_UK_by_location_2024 WHERE geography_type IS NULL;
 
 SELECT count(distinct(pe.location_code)) FROM dataschool_project.population_UK_by_location_2024 pe; -- 357
 
