@@ -7,10 +7,12 @@ CREATE TABLE authority_locations_lookup (
     authority_convert VARCHAR(80),
     location_code VARCHAR(80),
     location_name VARCHAR(80),
+    location_convert VARCHAR(80),
     geography_type VARCHAR(100),
     population INT
 );
 
+-- #############WASTE COLLECTION#################
 -- Populate Table from waste_collection_2025_summary
 SELECT DISTINCT( 
 	LTRIM(RTRIM(
@@ -106,19 +108,74 @@ SELECT DISTINCT(
 	))), authority_id, authority 
 FROM dataschool_project.waste_collection_2025_summary;
 
+-- #################### FROM POPULATION #######################
+
 -- We update location code, name, geography type and  population
 UPDATE dataschool_project.authority_locations_lookup al
-JOIN dataschool_project.population_uk_by_location_2024 pe 
+JOIN dataschool_project.main_population_uk_by_location_2024 pe 
 ON al.authority_convert = pe.location_name
 SET
 	al.location_name = pe.location_name,
-    al.location_code = pe.location_code,
+    #al.location_code = pe.location_code,
     al.geography_type = pe.geography_type,
-    al.population = pe.population; 
+    al.population = pe.population
+WHERE pe.geography_type != 'Metropolitan County' AND pe.geography_type != 'Country' AND pe.geography_type != 'Region' AND pe.geography_type != 'County'; 
 
+-- we update location_name converted from population_england
+SELECT LTRIM(RTRIM(
+	REGEXP_REPLACE(		
+		REGEXP_REPLACE(		
+			REGEXP_REPLACE(		
+				REGEXP_REPLACE(
+					location_name,
+					'\\s*[-.]\\s*',
+					' '
+				),
+				', City of',
+				''
+			),
+			', County of',
+			''
+		),
+		"'",
+		''
+	)
+)) as converted
+FROM dataschool_project.main_population_UK_by_location_2024;
+
+UPDATE dataschool_project.authority_locations_lookup al
+JOIN dataschool_project.main_population_UK_by_location_2024 mp
+    ON al.location_name = mp.location_name
+SET location_convert = LTRIM(RTRIM(	
+	REGEXP_REPLACE(
+		REGEXP_REPLACE(
+			REGEXP_REPLACE(
+				REGEXP_REPLACE(
+					mp.location_name,
+					'\\s*[-.]\\s*',
+					' '
+				),
+				', City of',
+				''
+			),
+			', County of',
+			''
+		),
+		"'",
+		''
+	)
+));
+
+-- We need to update population for all these records with population NULL
 UPDATE dataschool_project.authority_locations_lookup
 SET population = 0 
 WHERE location_code IS NULL;
+
+
+select count(*) FROM dataschool_project.authority_locations_lookup lo
+JOIN dataschool_project.local_authority_districts_2025 la
+ON lo.location_name = la.lad25_name; -- 289
+#SET al.location_code = pe.location_code;
 
 -- ###Export Data for Tableau
 SELECT
@@ -157,25 +214,25 @@ WHERE al.location_code IS NULL;
 #SELECT al.location_name, al.location_code,pe.location_code,pe.location_name,pe.geography_type,pe.population 
 SELECT count(distinct(al.authority_convert)) 
 FROM dataschool_project.authority_locations_lookup al
-JOIN dataschool_project.population_uk_by_location_2024 pe 
+JOIN dataschool_project.main_population_uk_by_location_2024 pe 
 ON al.authority_convert = pe.location_name; -- 291
 
 SELECT count(distinct(authority_convert)) 
 FROM dataschool_project.authority_locations_lookup
 WHERE authority_convert NOT IN (
 	SELECT location_name
-	FROM dataschool_project.population_uk_by_location_2024
+	FROM dataschool_project.main_population_uk_by_location_2024
 ); -- 30
 
 SELECT location_name, geography_type, population
-FROM dataschool_project.population_uk_by_location_2024
+FROM dataschool_project.main_population_uk_by_location_2024
 WHERE geography_type = 'Country' OR geography_type = 'Region' OR geography_type = 'County';
 
 SELECT al.authority_name, al.geography_type, al.location_code, al.population
 FROM dataschool_project.authority_locations_lookup al
 WHERE NOT EXISTS (
 	SELECT 1 
-	FROM dataschool_project.population_uk_by_location_2024 pu
+	FROM dataschool_project.main_population_uk_by_location_2024 pu
     WHERE al.authority_convert = pu.location_name
 );
 
@@ -183,7 +240,7 @@ SELECT count(distinct(authority_convert))
 FROM dataschool_project.authority_locations_lookup
 WHERE authority_convert IN (
 	SELECT location_name
-	FROM dataschool_project.population_uk_by_location_2024
+	FROM dataschool_project.main_population_uk_by_location_2024
 ); -- 292
 
 SELECT count(distinct(al.authority_convert)) 
@@ -192,7 +249,7 @@ JOIN dataschool_project.local_authority_districts_2025 l2
 ON l2.lad25_name = al.authority_convert; -- 292
 
 SELECT count(distinct(pe.location_code)) 
-FROM dataschool_project.population_uk_by_location_2024 pe; -- 357
+FROM dataschool_project.main_population_uk_by_location_2024 pe; -- 357
 
 SELECT count(distinct(wc.authority_id)) 
 FROM dataschool_project.waste_collection_2025_summary wc; -- 321

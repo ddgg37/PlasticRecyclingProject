@@ -3,8 +3,11 @@ CREATE TABLE waste_collection_2025_summary (
 waste_processor_id INT,
 authority VARCHAR(255), 
 authority_id INT,
-period VARCHAR(20),
 period_id INT,
+period_start_month INT,
+period_start_year INT,
+period_end_month INT,
+period_end_year INT,
 waste_stream_type_id INT,
 waste_stream_type VARCHAR(80),
 facility_type_id INT,
@@ -24,8 +27,11 @@ SELECT
 	waste_processor_id,
 	authority, 
 	authority_id,
-	period,
 	period_id,
+    MONTH(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d')),
+    YEAR(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d')),
+    MONTH(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d')),
+    YEAR(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d')),
 	waste_stream_type_id,
 	waste_stream_type,
 	facility_type_id,
@@ -38,20 +44,48 @@ SELECT
 	material_id,
 	material,
 	tonnes_by_material
-FROM dataschool_project.waste_collection_2025
-where national_facility_id != 0;
+FROM dataschool_project.main_waste_collection_2025
+where waste_processor_id != 0;
 
--- We store this variable to usie it inm next query 
-SELECT population 
-INTO @England_population
-FROM authority_locations_lookup 
-WHERE location_name = 'ENGLAND';
+-- Clean up Authories
+SELECT DISTINCT(RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''), 'Borough', ''), 'District',''), 'MBC',''), 'LB', ''), 'County', ''),'City',''),'Waste',''),'Authority',''),'WDA ()',''),'MDC ()',''),'MDC','')))) AS authority_converted 
+FROM dataschool_project.waste_collection_2025_summary;
 
-#UPDATE waste_collection_2025_summary wc
-#JOIN dataschool_project.authority_locations_lookup al
-#ON wc.authority_id = al.authority_id 
-#SET wc.tonnes_material = ROUND(SUM(wc.tonnes_by_material), 2),
-# wc.population_percentage = ROUND((al.population * 100)/@England_population, 2);
+UPDATE dataschool_project.waste_collection_2025_summary
+SET authority = RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''), 'Borough', ''), 'District',''), 'MBC',''), 'LB', ''), 'County', ''),'City',''),'Waste',''),'Authority',''),'WDA ()',''),'MDC ()',''),'MDC','')));
+
+-- char 13 is return character
+SET @character13 = CHAR(13);
+-- char 10 is line feed
+SET @character10 = CHAR(10);
+-- char 9 is tab
+SET @characterTab = CHAR(9);
+
+-- This query shows what character contains in MaterialGroup
+SELECT material_group, 
+CASE
+	WHEN material_group LIKE CONCAT('%', @character13, '%') THEN 'Return'
+	WHEN material_group LIKE CONCAT('%', @character10, '%') THEN 'Line Feed'
+	WHEN material_group LIKE CONCAT('%', @character9, '%') THEN 'Tab'
+    ELSE 'Empty'
+END  
+FROM dataschool_project.waste_collection_2025_summary
+WHERE material_group LIKE CONCAT('%', @character13, '%') OR 
+	material_group LIKE CONCAT('%', @character10, '%') OR 
+	material_group LIKE CONCAT('%', @character9, '%'); 
+
+-- Remove Return, line feed or tab characters
+UPDATE dataschool_project.waste_collection_2025_summary 
+SET material_group = 
+		REPLACE(
+			REPLACE(
+				REPLACE(material_group, @character13, ''),
+			@character10, ''),
+		@character9, '') = ''
+WHERE material_group LIKE CONCAT('%', @character13, '%')
+   OR material_group LIKE CONCAT('%', @character10, '%')
+   OR material_group LIKE CONCAT('%', @character9, '%');
+
 
 -- ###################################################################
 
@@ -60,8 +94,11 @@ SELECT
 	'waste_processor_id',
 	'authority', 
 	'authority_id',
-	'period',
 	'period_id',
+    'period_start_month',
+	'period_start_year',
+	'period_end_month',
+	'period_end_year',
 	'waste_stream_type_id',
 	'waste_stream_type',
 	'facility_type_id',
@@ -79,8 +116,11 @@ SELECT
 	waste_processor_id,
 	authority, 
 	authority_id,
-	period,
 	period_id,
+    period_start_month,
+	period_start_year,
+	period_end_month,
+	period_end_year,
 	waste_stream_type_id,
 	waste_stream_type,
 	facility_type_id,
@@ -100,6 +140,7 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
 -- #####################################################################
+
 
 SELECT distinct(authority)  
 FROM dataschool_project.waste_collection_2025_summary;
@@ -160,6 +201,34 @@ WHERE material LIKE CONCAT('%', @character13, '%') OR
 	material LIKE CONCAT('%', @character10, '%') OR 
 	material LIKE CONCAT('%', @character9, '%'); 
     
-    
+SELECT count(distinct(wc.authority_id)) 
+FROM dataschool_project.waste_collection_2025_summary wc
+JOIN dataschool_project.authority_locations_lookup al
+ON wc.authority_id = al.authority_id;  -- 321
+
+SELECT count(*) 
+FROM dataschool_project.authority_locations_lookup al
+JOIN dataschool_project.local_authority_districts_2025 la
+ON al.authority_convert = la.lad25_name
+where la.lad25_code LIKE 'E%';  -- 292
+
+SELECT authority, tonnes_by_material, total_tonnes FROM dataschool_project.main_waste_collection_2025;
+
+-- total tonnes per period
+SELECT SUM(total_tonnes), SUM(tonnes_by_material), period_id FROM dataschool_project.main_waste_collection_2025
+GROUP BY total_tonnes, tonnes_by_material, period_id;
+
+-- total tonnest per population and material
+SELECT SUM(total_tonnes), SUM(tonnes_by_material), period_id FROM dataschool_project.main_waste_collection_2025
+GROUP BY total_tonnes, tonnes_by_material, period_id;
+
+-- total tonnest when tonnes per material is zero
+SELECT * FROM dataschool_project.main_waste_collection_2025
+where output_process_type = 'Treatment unknown';
+
+-- to differetiate total_tonnes and tonnes by material
+SELECT SUM(total_tonnes), SUM(tonnes_by_material), material, authority FROM dataschool_project.main_waste_collection_2025
+GROUP BY total_tonnes, tonnes_by_material, material, authority;
+
 
 
