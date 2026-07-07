@@ -4,10 +4,8 @@ waste_processor_id INT,
 authority VARCHAR(255), 
 authority_id INT,
 period_id INT,
-period_start_month INT,
-period_start_year INT,
-period_end_month INT,
-period_end_year INT,
+period_start DATE,
+period_end DATE,
 waste_stream_type_id INT,
 waste_stream_type VARCHAR(80),
 facility_type_id INT,
@@ -28,10 +26,8 @@ SELECT
 	authority, 
 	authority_id,
 	period_id,
-    MONTH(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d')),
-    YEAR(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d')),
-    MONTH(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d')),
-    YEAR(STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d')),
+    STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d'),
+    STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d'),
 	waste_stream_type_id,
 	waste_stream_type,
 	facility_type_id,
@@ -59,7 +55,7 @@ SET @character13 = CHAR(13);
 -- char 10 is line feed
 SET @character10 = CHAR(10);
 -- char 9 is tab
-SET @characterTab = CHAR(9);
+SET @character9 = CHAR(9);
 
 -- This query shows what character contains in MaterialGroup
 SELECT material_group, 
@@ -81,7 +77,7 @@ SET material_group =
 			REPLACE(
 				REPLACE(material_group, @character13, ''),
 			@character10, ''),
-		@character9, '') = ''
+		@character9, '')
 WHERE material_group LIKE CONCAT('%', @character13, '%')
    OR material_group LIKE CONCAT('%', @character10, '%')
    OR material_group LIKE CONCAT('%', @character9, '%');
@@ -95,10 +91,8 @@ SELECT
 	'authority', 
 	'authority_id',
 	'period_id',
-    'period_start_month',
-	'period_start_year',
-	'period_end_month',
-	'period_end_year',
+    'period_start',
+	'period_end',
 	'waste_stream_type_id',
 	'waste_stream_type',
 	'facility_type_id',
@@ -117,10 +111,8 @@ SELECT
 	authority, 
 	authority_id,
 	period_id,
-    period_start_month,
-	period_start_year,
-	period_end_month,
-	period_end_year,
+    period_start,
+	period_end,
 	waste_stream_type_id,
 	waste_stream_type,
 	facility_type_id,
@@ -165,6 +157,17 @@ SELECT wc.authority_id, wc.authority, wc.total_tonnes
 FROM dataschool_project.waste_collection_2025_summary wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority = al.authority_name;
+
+SELECT count(wc.authority_id) 
+FROM dataschool_project.waste_collection_2025_summary wc
+JOIN dataschool_project.authority_locations_lookup al
+ON wc.authority_id = al.authority_id; -- 15069
+
+SELECT count(wc.authority_id) 
+FROM dataschool_project.waste_collection_2025_summary wc
+JOIN dataschool_project.authority_locations_lookup al
+ON wc.authority = al.authority_convert; -- 15069
+
 
 -- SUM of tonnes by material
 SELECT 
