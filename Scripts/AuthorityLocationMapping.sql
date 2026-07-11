@@ -7,106 +7,89 @@ CREATE TABLE authority_locations_lookup (
     authority_convert VARCHAR(80),
     location_code VARCHAR(80),
     location_name VARCHAR(80),
-    location_convert VARCHAR(80),
     geography_type VARCHAR(100),
     population INT
 );
 
 -- #############WASTE COLLECTION#################
 -- Populate Table from waste_collection_2025_summary
-SELECT DISTINCT( 
-	LTRIM(RTRIM(
-	REGEXP_REPLACE(
-		REGEXP_REPLACE(
-			REGEXP_REPLACE(
-				REGEXP_REPLACE(
-					REGEXP_REPLACE(
-						REGEXP_REPLACE(
-							REGEXP_REPLACE(
-								REGEXP_REPLACE(
-									REGEXP_REPLACE(
-										REGEXP_REPLACE(
-											authority,
-											'\\b(City Council|Borough\\s*|Council\\s*|Royal\\s*|District|Waste|Authority|\\s*WDA\\s*|(MBC)|MDC|LB)',
-											''
-										),
-										'\\s+',
-										' '
-									),
-									'\\s*\\([^)]*\\)',
-									''
-								),
-								'-',
-								' '
-							),
-							'\\s+City\\s+and',
-							''
-						),
-						'^of\\s*',
-						''
-					),
-					'\\s+Council$',
-					''
-				),
-				' South Cambs .*',
-				''
-			),
-			'\\s+City',
-			''
-		),
-		'^the\\s+',
-		''
-	)    
-))) as authority
-FROM dataschool_project.waste_collection_2025_summary;
+SELECT DISTINCT
+    LTRIM(RTRIM(
+        REGEXP_REPLACE(
+            REGEXP_REPLACE(
+                REGEXP_REPLACE(
+                    REGEXP_REPLACE(
+                        REGEXP_REPLACE(
+                            REGEXP_REPLACE(
+                                REGEXP_REPLACE(
+                                    REGEXP_REPLACE(
+                                        REGEXP_REPLACE(
+                                            REGEXP_REPLACE(
+                                                REPLACE(REPLACE(authority, '''', ''), '.', ''),
+                                                '\\b(City Council|City$|Borough\\s*|Council\\s*|Royal\\s*|District|Waste|Authority|\\s*WDA\\s*|(MBC)|MDC|LB)',
+                                                ''
+                                            ),
+                                            '\\s+', ' '
+                                        ),
+                                        '\\s*\\([^)]*\\)', ''
+                                    ),
+                                    '-', ' '
+                                ),
+                                '\\s+City\\s+and', ''
+                            ),
+                            '^of\\s*', ''
+                        ),
+                        '\\s+Council$', ''
+                    ),
+                    ' South Cambs .*', ''
+                ),
+                '\\s+City', ''
+            ),
+            '^the\\s+', ''
+        )
+    )) AS authority
+FROM dataschool_project.waste_collection_23_25_summary;
 
--- we populate authority_convert in authority_locations_lookup
+-- Step 1: build the normalized authority key from the waste table
 INSERT INTO authority_locations_lookup (authority_convert, authority_id, authority_name)
-SELECT DISTINCT( 
-	LTRIM(RTRIM(
-	REGEXP_REPLACE(
-		REGEXP_REPLACE(
-			REGEXP_REPLACE(
-				REGEXP_REPLACE(
-					REGEXP_REPLACE(
-						REGEXP_REPLACE(
-							REGEXP_REPLACE(
-								REGEXP_REPLACE(
-									REGEXP_REPLACE(
-										REGEXP_REPLACE(
-											authority,
-											'\\b(City Council|City$|Borough\\s*|Council\\s*|Royal\\s*|District|Waste|Authority|\\s*WDA\\s*|(MBC)|MDC|LB)',
-											''
-										),
-										'\\s+',
-										' '
-									),
-									'\\s*\\([^)]*\\)',
-									''
-								),
-								'\\s*-\\s*',
-								' '
-							),
-							'\\s+City\\s+and',
-							''
-						),
-						'^of\\s*',
-						''
-					),
-					'\\s+Council$',
-					''
-				),
-				' South Cambs .*',
-				''
-			),
-			'\\s+City',
-			''
-		),
-		'^the\\s+',
-		''
-	)    
-	))), authority_id, authority 
-FROM dataschool_project.waste_collection_2025_summary;
+SELECT DISTINCT
+    LTRIM(RTRIM(
+        REGEXP_REPLACE(
+            REGEXP_REPLACE(
+                REGEXP_REPLACE(
+                    REGEXP_REPLACE(
+                        REGEXP_REPLACE(
+                            REGEXP_REPLACE(
+                                REGEXP_REPLACE(
+                                    REGEXP_REPLACE(
+                                        REGEXP_REPLACE(
+                                            REGEXP_REPLACE(
+                                                REPLACE(REPLACE(authority, '''', ''), '.', ''),
+                                                '\\b(City Council|City$|Borough\\s*|Council\\s*|Royal\\s*|District|Waste|Authority|\\s*WDA\\s*|(MBC)|MDC|LB)',
+                                                ''
+                                            ),
+                                            '\\s+', ' '
+                                        ),
+                                        '\\s*\\([^)]*\\)', ''
+                                    ),
+                                    '-', ' '
+                                ),
+                                '\\s+City\\s+and', ''
+                            ),
+                            '^of\\s*', ''
+                        ),
+                        '\\s+Council$', ''
+                    ),
+                    ' South Cambs .*', ''
+                ),
+                '\\s+City', ''
+            ),
+            '^the\\s+', ''
+        )
+    )) AS authority_convert,
+    authority_id,
+    authority
+FROM dataschool_project.waste_collection_23_25_summary;
 
 -- #################### FROM POPULATION #######################
 
@@ -116,66 +99,14 @@ JOIN dataschool_project.main_population_uk_by_location_2024 pe
 ON al.authority_convert = pe.location_name
 SET
 	al.location_name = pe.location_name,
-    #al.location_code = pe.location_code,
+    al.location_code = pe.location_code,
     al.geography_type = pe.geography_type,
-    al.population = pe.population
-WHERE pe.geography_type != 'Metropolitan County' AND pe.geography_type != 'Country' AND pe.geography_type != 'Region' AND pe.geography_type != 'County'; 
-
--- we update location_name converted from population_england
-SELECT LTRIM(RTRIM(
-	REGEXP_REPLACE(		
-		REGEXP_REPLACE(		
-			REGEXP_REPLACE(		
-				REGEXP_REPLACE(
-					location_name,
-					'\\s*[-.]\\s*',
-					' '
-				),
-				', City of',
-				''
-			),
-			', County of',
-			''
-		),
-		"'",
-		''
-	)
-)) as converted
-FROM dataschool_project.main_population_UK_by_location_2024;
-
-UPDATE dataschool_project.authority_locations_lookup al
-JOIN dataschool_project.main_population_UK_by_location_2024 mp
-    ON al.location_name = mp.location_name
-SET location_convert = LTRIM(RTRIM(	
-	REGEXP_REPLACE(
-		REGEXP_REPLACE(
-			REGEXP_REPLACE(
-				REGEXP_REPLACE(
-					mp.location_name,
-					'\\s*[-.]\\s*',
-					' '
-				),
-				', City of',
-				''
-			),
-			', County of',
-			''
-		),
-		"'",
-		''
-	)
-));
+    al.population = pe.population;
 
 -- We need to update population for all these records with population NULL
 UPDATE dataschool_project.authority_locations_lookup
 SET population = 0 
-WHERE location_code IS NULL;
-
-
-select count(*) FROM dataschool_project.authority_locations_lookup lo
-JOIN dataschool_project.local_authority_districts_2025 la
-ON lo.location_name = la.lad25_name; -- 289
-#SET al.location_code = pe.location_code;
+WHERE location_name IS NULL;
 
 -- ###Export Data for Tableau
 SELECT
@@ -203,10 +134,15 @@ LINES TERMINATED BY '\n';
 
 -- ###########################################################################################
 
+select count(*) FROM dataschool_project.authority_locations_lookup lo
+JOIN dataschool_project.main_local_authority_districts_2025 la
+ON lo.location_name = la.lad25_name; -- 289
+#SET al.location_code = pe.location_code;
+
 -- We populate all the Regions, Counties and Country
 SELECT count(al.authority_id) 
 FROM authority_locations_lookup al
-JOIN population_uk_by_location_2024 pe
+JOIN main_population_uk_by_location_2024 pe
     ON al.authority_convert = pe.location_name
 WHERE al.location_code IS NULL;
 
@@ -215,14 +151,14 @@ WHERE al.location_code IS NULL;
 SELECT count(distinct(al.authority_convert)) 
 FROM dataschool_project.authority_locations_lookup al
 JOIN dataschool_project.main_population_uk_by_location_2024 pe 
-ON al.authority_convert = pe.location_name; -- 291
+ON al.authority_convert = pe.location_name; -- 291 now 301
 
 SELECT count(distinct(authority_convert)) 
 FROM dataschool_project.authority_locations_lookup
 WHERE authority_convert NOT IN (
 	SELECT location_name
 	FROM dataschool_project.main_population_uk_by_location_2024
-); -- 30
+); -- 30 now 20
 
 SELECT location_name, geography_type, population
 FROM dataschool_project.main_population_uk_by_location_2024
@@ -245,14 +181,14 @@ WHERE authority_convert IN (
 
 SELECT count(distinct(al.authority_convert)) 
 FROM dataschool_project.authority_locations_lookup al
-JOIN dataschool_project.local_authority_districts_2025 l2 
+JOIN dataschool_project.main_local_authority_districts_2025 l2 
 ON l2.lad25_name = al.authority_convert; -- 292
 
 SELECT count(distinct(pe.location_code)) 
 FROM dataschool_project.main_population_uk_by_location_2024 pe; -- 357
 
 SELECT count(distinct(wc.authority_id)) 
-FROM dataschool_project.waste_collection_2025_summary wc; -- 321
+FROM dataschool_project.waste_collection_23_25_summary wc; -- 321
 
 SELECT count(distinct(l2.lad25_code)) 
 FROM dataschool_project.local_authority_districts_2025 l2; -- 361
@@ -273,6 +209,14 @@ FROM dataschool_project.authority_locations_lookup al
 JOIN dataschool_project.waste_collection wc
 ON al.authority_id = wc.authority_id
 where al.geography_type IS NULL;
+
+SELECT * 
+FROM dataschool_project.authority_locations_lookup al
+WHERE al.authority_name LIKE '%London%';
+
+SELECT * 
+FROM dataschool_project.waste_collection_23_25_summary
+WHERE authority_name LIKE '%London%';
 
 -- The authorities and ID
 Select distinct(authority), authority_id
