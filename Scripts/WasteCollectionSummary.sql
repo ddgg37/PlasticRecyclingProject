@@ -353,12 +353,12 @@ ON wc.authority = al.authority_name;
 SELECT count(wc.authority_id) 
 FROM dataschool_project.waste_collection_23_25_summary wc
 JOIN dataschool_project.authority_locations_lookup al
-ON wc.authority_id = al.authority_id; -- 15069
+ON wc.authority_id = al.authority_id; -- 623755
 
 SELECT count(wc.authority_id) 
 FROM dataschool_project.waste_collection_23_25_summary wc
 JOIN dataschool_project.authority_locations_lookup al
-ON wc.authority = al.authority_convert; -- 15069
+ON wc.authority = al.authority_convert; -- 601406
 
 
 -- SUM of tonnes by material
