@@ -108,6 +108,9 @@ UPDATE dataschool_project.authority_locations_lookup
 SET population = 0 
 WHERE location_name IS NULL;
 
+DELETE FROM dataschool_project.authority_locations_lookup
+where geography_type in ('County','Region') OR geography_type IS NULL; -- 42
+
 -- ###Export Data for Tableau
 SELECT
     'authority_id',
