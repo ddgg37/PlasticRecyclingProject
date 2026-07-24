@@ -1,6 +1,4 @@
 
-SET GLOBAL local_infile = 1;
-
 CREATE TABLE authority_locations_lookup (
     authority_id INT,
     authority_name VARCHAR(80),
@@ -11,8 +9,9 @@ CREATE TABLE authority_locations_lookup (
     population INT
 );
 
--- #############WASTE COLLECTION#################
+-- #############ADD AUTHORITIES CONVERSION FROM WASTE TABLE WASTE COLLECTION#################
 -- Populate Table from waste_collection_2025_summary
+
 SELECT DISTINCT
     LTRIM(RTRIM(
         REGEXP_REPLACE(

@@ -1,54 +1,61 @@
 
-CREATE TABLE waste_collection_23_25_summary (
-waste_processor_id INT,
-authority VARCHAR(255), 
-authority_id INT,
-period_id INT,
-period_start DATE,
-period_end DATE,
-waste_stream_type_id INT,
-waste_stream_type VARCHAR(80),
-facility_type_id INT,
-facility_type VARCHAR(80),
-national_facility_id INT,
-facility_name VARCHAR(80),
-facility_postCode VARCHAR(10),
-total_tonnes FLOAT,
-material_group VARCHAR(80),
-material_id INT,
-material VARCHAR(50),
-tonnes_by_material FLOAT
-);
+-- ##################### Clean up and transformation of few fields in the tasble
+-- Transform Authority in Waste table
 
-INSERT INTO waste_collection_23_25_summary
-SELECT 
-	waste_processor_id,
-	authority, 
-	authority_id,
-	period_id,
-    STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', 1)), ' 01'), '%b %y %d'),
-    STR_TO_DATE(CONCAT(TRIM(SUBSTRING_INDEX(period, ' - ', -1)), ' 01'), '%b %y %d'),
-	waste_stream_type_id,
-	waste_stream_type,
-	facility_type_id,
-	facility_type,
-	national_facility_id,
-	facility_name,
-	facility_postCode,
-	total_tonnes,
-	material_group,
-	material_id,
-	material,
-	tonnes_by_material
-FROM dataschool_project.main_waste_collection_2025
-where waste_processor_id != 0;
+SELECT DISTINCT
+    (RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''),
+                                                                'Borough',
+                                                                ''),
+                                                            'District',
+                                                            ''),
+                                                        'MBC',
+                                                        ''),
+                                                    'LB',
+                                                    ''),
+                                                'County',
+                                                ''),
+                                            'City',
+                                            ''),
+                                        'Waste',
+                                        ''),
+                                    'Authority',
+                                    ''),
+                                'WDA ()',
+                                ''),
+                            'MDC ()',
+                            ''),
+                        'MDC',
+                        '')))) AS authority_converted
+FROM
+    dataschool_project.waste_collection_23_25_summary;
 
--- Clean up Authories
-SELECT DISTINCT(RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''), 'Borough', ''), 'District',''), 'MBC',''), 'LB', ''), 'County', ''),'City',''),'Waste',''),'Authority',''),'WDA ()',''),'MDC ()',''),'MDC','')))) AS authority_converted 
-FROM dataschool_project.waste_collection_23_25_summary;
+UPDATE dataschool_project.waste_collection_23_25_summary 
+SET 
+    authority = RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''),
+                                                                'Borough',
+                                                                ''),
+                                                            'District',
+                                                            ''),
+                                                        'MBC',
+                                                        ''),
+                                                    'LB',
+                                                    ''),
+                                                'County',
+                                                ''),
+                                            'City',
+                                            ''),
+                                        'Waste',
+                                        ''),
+                                    'Authority',
+                                    ''),
+                                'WDA ()',
+                                ''),
+                            'MDC ()',
+                            ''),
+                        'MDC',
+                        '')));
 
-UPDATE dataschool_project.waste_collection_23_25_summary
-SET authority = RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''), 'Borough', ''), 'District',''), 'MBC',''), 'LB', ''), 'County', ''),'City',''),'Waste',''),'Authority',''),'WDA ()',''),'MDC ()',''),'MDC','')));
+-- Remove special characters from material group
 
 -- char 13 is return character
 SET @character13 = CHAR(13);
@@ -84,8 +91,8 @@ WHERE material_group LIKE CONCAT('%', @character13, '%')
 
 
 -- ###################################################################
-
 -- Export Data for Tableau
+
 SELECT
 	'waste_processor_id',
 	'authority', 
