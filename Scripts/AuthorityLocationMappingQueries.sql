@@ -1,15 +1,5 @@
 
-CREATE TABLE authority_locations_lookup (
-    authority_id INT,
-    authority_name VARCHAR(80),
-    authority_convert VARCHAR(80),
-    location_code VARCHAR(80),
-    location_name VARCHAR(80),
-    geography_type VARCHAR(100),
-    population INT
-);
-
--- #############ADD AUTHORITIES CONVERSION FROM WASTE TABLE WASTE COLLECTION#################
+-- #############ADD AUTHORITIES CONVERSION FROM WASTE TABLE#################
 -- Populate Table from waste_collection_2025_summary
 
 SELECT DISTINCT
@@ -47,7 +37,7 @@ SELECT DISTINCT
             '^the\\s+', ''
         )
     )) AS authority
-FROM dataschool_project.waste_collection_23_25_summary;
+FROM dataschool_project.waste_collection_23_25;
 
 -- Step 1: build the normalized authority key from the waste table
 INSERT INTO authority_locations_lookup (authority_convert, authority_id, authority_name)
@@ -88,7 +78,7 @@ SELECT DISTINCT
     )) AS authority_convert,
     authority_id,
     authority
-FROM dataschool_project.waste_collection_23_25_summary;
+FROM dataschool_project.waste_collection_23_25;
 
 -- #################### FROM POPULATION #######################
 
@@ -190,7 +180,7 @@ SELECT count(distinct(pe.location_code))
 FROM dataschool_project.main_population_uk_by_location_2024 pe; -- 357
 
 SELECT count(distinct(wc.authority_id)) 
-FROM dataschool_project.waste_collection_23_25_summary wc; -- 321
+FROM dataschool_project.waste_collection_23_25 wc; -- 321
 
 SELECT count(distinct(l2.lad25_code)) 
 FROM dataschool_project.local_authority_districts_2025 l2; -- 361
@@ -217,7 +207,7 @@ FROM dataschool_project.authority_locations_lookup al
 WHERE al.authority_name LIKE '%London%';
 
 SELECT * 
-FROM dataschool_project.waste_collection_23_25_summary
+FROM dataschool_project.waste_collection_23_25
 WHERE authority_name LIKE '%London%';
 
 -- The authorities and ID
@@ -229,27 +219,111 @@ from dataschool_project.waste_collection;
 Select count(distinct(authority))
 from dataschool_project.waste_collection_2025; -- 322
 
--- ###############UTILITIES
 
-/*
-SELECT DISTINCT(authority)
-FROM dataschool_project.waste_collection as pw 
-WHERE EXISTS (
-	SELECT 1
-	FROM dataschool_project.population_england_wales_by_location AS pe
-    #WHERE pe.location_name LIKE CONCAT('%',pw.authority,'%')
-    WHERE INSTR(pe.location_name, pw.authority) > 0
-    #LIMIT 100
-    #WHERE pw.authority = pe.location_name
-);
+-- #################### RANK COLUMN CALCULATION - DISCARDED ##################################
+-- In the end we cannot create this Rank field as there are few Data problems
+
+SELECT
+    authority_id,
+    recycled_tonnes,
+    all_routes_tonnes,
+    recycled_tonnes / all_routes_tonnes AS recycling_rate,
+    recycling_rate_rank
+FROM (
+    SELECT
+        al.authority_id,
+        al.recycling_rate_rank,
+        SUM(CASE WHEN wc.facility_type IN (
+            'Reprocessor - recycling (qu19)', 'Exporter - recycling (qu19)',
+            'Reuse (qu35)', 'Exporter - reuse (qu35)',
+            'Windrow or other composting', 'In vessel composting',
+            'Anaerobic or Aerobic Digestion Segregated'
+        ) THEN wc.tonnes_by_material ELSE 0 END) AS recycled_tonnes,
+        SUM(wc.tonnes_by_material) AS all_routes_tonnes
+    FROM authority_locations_lookup al
+    JOIN waste_collection_23_25 wc ON wc.authority_id = al.authority_id
+    WHERE wc.facility_type <> 'Final Destination'
+      AND wc.tonnes_by_material > 0
+    GROUP BY al.authority_id, al.recycling_rate_rank
+) x
+WHERE recycling_rate_rank = 1
+LIMIT 10;
+
+UPDATE authority_locations_lookup al
+JOIN (
+    SELECT
+        authority_id,
+        RANK() OVER (ORDER BY recycled_tonnes / total_tonnes DESC) AS rnk
+    FROM (
+        SELECT
+            authority_id,
+            SUM(CASE WHEN facility_type IN (
+                'Reprocessor - recycling (qu19)', 'Exporter - recycling (qu19)',
+                'Reuse (qu35)', 'Exporter - reuse (qu35)',
+                'Windrow or other composting', 'In vessel composting',
+                'Anaerobic or Aerobic Digestion Segregated'
+            ) THEN tonnes_by_material ELSE 0 END) AS recycled_tonnes,
+            SUM(tonnes_by_material) AS total_tonnes
+        FROM waste_collection_23_25
+        WHERE facility_type <> 'Final Destination'
+          AND tonnes_by_material > 0
+        GROUP BY authority_id
+    ) rates
+) ranked ON al.authority_id = ranked.authority_id
+SET al.recycling_rate_rank = ranked.rnk;
+
+ALTER TABLE authority_locations_lookup DROP COLUMN recycling_rate_rank;
+
+-- #################################### DIFFERENT QUERIES FOR DATA CHECKING ############################################
+
+SELECT distinct(geography_type) FROM dataschool_project.authority_locations_lookup;
+
+SELECT SUM(population) FROM dataschool_project.authority_locations_lookup
+where location_code like 'E%';
 
 
-select authority 
-FROM dataschool_project.waste_collection;
 
-SELECT *
-FROM dataschool_project.waste_collection
-WHERE authority IN (
-    SELECT location_name
-    FROM dataschool_project.population_england_wales_by_location
-);
+SELECT DISTINCT al.authority_convert, al.authority_name, al.geography_type, al.population, wc.material,wc.tonnes_by_material  
+#SELECT DISTINCT SUM( al.population)
+FROM dataschool_project.authority_locations_lookup al 
+JOIN waste_collection_23_25 wc
+ON wc.authority_id = al.authority_id 
+#where geography_type in ('Unitary Authority','Non-metropolitan District','Metropolitan District','London Borough') AND geography_type IS NOT NULL;
+where al.geography_type in ('London Borough');
+#GROUP BY (al.authority_convert, al.authority_name, al.geography_type, wc.material,wc.tonnes_by_material);
+
+SELECT DISTINCT al.authority_convert, geography_type
+FROM dataschool_project.authority_locations_lookup al 
+JOIN waste_collection_23_25 wc
+ON wc.authority_id = al.authority_id 
+WHERE al.authority_name like '%Gloucestershire%';
+
+SELECT SUM(population), geography_type
+FROM dataschool_project.authority_locations_lookup al
+WHERE geography_type in ('Unitary Authority','Non-metropolitan District','Metropolitan District','London Borough') AND geography_type IS NOT NULL AND authority_name = 'Leeds' 
+GROUP BY geography_type;
+
+select 14810684 + 18881377 + 12377197 + 9074625;
+
+
+SELECT count(distinct(national_facility_id)) FROM dataschool_project.waste_collection_23_25;
+
+SELECT sum(population) FROM dataschool_project.authority_locations_lookup
+where authority_name = 'Leeds';
+
+#SELECT authority_id,authority_name, geography_type FROM dataschool_project.authority_locations_lookup
+SELECT count(*) FROM dataschool_project.authority_locations_lookup
+#DELETE FROM dataschool_project.authority_locations_lookup
+where geography_type in ('County','Region') OR geography_type IS NULL; -- 42
+
+SELECT count(authority_id) FROM dataschool_project.authority_locations_lookup;
+
+SELECT count(distinct(location_code)) FROM dataschool_project.main_population_uk_by_location_2024
+where location_code like 'E%';
+
+SELECT SUM(population) FROM dataschool_project.main_population_uk_by_location_2024
+where location_code like 'E%'
+
+
+
+

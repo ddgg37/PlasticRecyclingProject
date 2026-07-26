@@ -1,7 +1,11 @@
 
--- ##################### Clean up and transformation of few fields in the tasble
--- Transform Authority in Waste table
+-- ###################################################################
+-- THIS SCRIPT CONVERTS AND CLEANS UP THE DATA FROM SPECIAL CHARACTERS
+-- THERE ARE AS WELL GENERIC DATA CHECK SCRIPTS TO UNDETAND BETTER THE DATA INSIDE THIS TABLE 
+-- ###################################################################
 
+
+-- Clean up and transformation of few fields in the tasble
 SELECT DISTINCT
     (RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''),
                                                                 'Borough',
@@ -27,9 +31,9 @@ SELECT DISTINCT
                         'MDC',
                         '')))) AS authority_converted
 FROM
-    dataschool_project.waste_collection_23_25_summary;
+    dataschool_project.main_waste_collection_23_25;
 
-UPDATE dataschool_project.waste_collection_23_25_summary 
+UPDATE dataschool_project.main_waste_collection_23_25 
 SET 
     authority = RTRIM(LTRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Authority, 'Council', ''),
                                                                 'Borough',
@@ -55,6 +59,7 @@ SET
                         'MDC',
                         '')));
 
+-- ##################################################################
 -- Remove special characters from material group
 
 -- char 13 is return character
@@ -72,13 +77,13 @@ CASE
 	WHEN material_group LIKE CONCAT('%', @character9, '%') THEN 'Tab'
     ELSE 'Empty'
 END  
-FROM dataschool_project.waste_collection_23_25_summary
+FROM dataschool_project.main_waste_collection_23_25
 WHERE material_group LIKE CONCAT('%', @character13, '%') OR 
 	material_group LIKE CONCAT('%', @character10, '%') OR 
 	material_group LIKE CONCAT('%', @character9, '%'); 
 
 -- Remove Return, line feed or tab characters
-UPDATE dataschool_project.waste_collection_23_25_summary 
+UPDATE dataschool_project.main_waste_collection_23_25 
 SET material_group = 
 		REPLACE(
 			REPLACE(
@@ -90,8 +95,8 @@ WHERE material_group LIKE CONCAT('%', @character13, '%')
    OR material_group LIKE CONCAT('%', @character9, '%');
 
 
--- ###################################################################
--- Export Data for Tableau
+-- ############################EXPORT DATA TO CSV FILE#######################################
+-- Export Data to CSV file for Tableau
 
 SELECT
 	'waste_processor_id',
@@ -132,7 +137,7 @@ SELECT
 	material_id,
 	material,
 	tonnes_by_material    
-FROM dataschool_project.waste_collection_23_25_summary
+FROM dataschool_project.main_waste_collection_23_25
 INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/ExportFromDBWasteCollectionSummary.csv'
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
@@ -157,7 +162,7 @@ WITH cleaned AS (
             ELSE YEAR(period_start) - 1
         END AS fiscal_year,
         SUM(tonnes_by_material) AS total_tonnes
-    FROM waste_collection_23_25_summary
+    FROM main_waste_collection_23_25
     WHERE facility_type <> 'Final Destination'
       AND tonnes_by_material > 0
     GROUP BY material_group, period_start
@@ -210,7 +215,7 @@ WITH cleaned AS (
             ELSE YEAR(period_start) - 1
         END AS fiscal_year,
         SUM(tonnes_by_material) AS total_tonnes
-    FROM waste_collection_23_25_summary
+    FROM main_waste_collection_23_25
     WHERE facility_type <> 'Final Destination'
       AND tonnes_by_material > 0
     GROUP BY material_group, period_start
@@ -252,7 +257,7 @@ SELECT
 FROM peaks_troughs
 ORDER BY swing_pct DESC;   -- biggest seasonal swings first
 
---  MORE USEFUL
+--  MORE USEFUL QUERY ABOUT SEASONAL DATA
 
 WITH cleaned AS (
     SELECT
@@ -266,7 +271,7 @@ WITH cleaned AS (
         END AS fiscal_quarter,
         CASE WHEN MONTH(period_start) >= 4 THEN YEAR(period_start) ELSE YEAR(period_start) - 1 END AS fiscal_year,
         SUM(tonnes_by_material) AS total_tonnes
-    FROM waste_collection_23_25_summary
+    FROM main_waste_collection_23_25
     WHERE facility_type <> 'Final Destination'
       AND tonnes_by_material > 0
     GROUP BY material, period_start
@@ -300,12 +305,14 @@ FROM verdict
 WHERE distinct_peak_quarters = 1        -- only genuinely consistent (seasonal) materials
 ORDER BY avg_swing_pct DESC;            -- strongest seasonal swing first
 
+
+-- Material calculation 
 SELECT
     material,
     period_start,
     period_id,
     SUM(tonnes_by_material) AS total_tonnes
-FROM waste_collection_23_25_summary
+FROM main_waste_collection_23_25  -- main_waste_collection_23_25
 WHERE facility_type <> 'Final Destination'
   AND tonnes_by_material > 0
   AND material IN ('Mixed cans', 'Green glass')
@@ -317,7 +324,7 @@ SELECT
     w.period_start,
     w.period_id,
     SUM(w.tonnes_by_material) AS total_tonnes
-FROM waste_collection_23_25_summary w
+FROM main_waste_collection_23_25 w
 JOIN authority_locations_lookup al
     ON w.authority_id = al.authority_id
 WHERE w.facility_type <> 'Final Destination'
@@ -327,43 +334,39 @@ WHERE w.facility_type <> 'Final Destination'
 GROUP BY w.material, w.period_start, w.period_id
 ORDER BY w.material, w.period_start;
 
-
-
-
-
 --  ###############################GNERAL QUERIES##########################
 
 SELECT distinct(authority)  
-FROM dataschool_project.waste_collection_23_25_summary;
+FROM dataschool_project.main_waste_collection_23_25;
 
 -- Data Analisys
 SELECT DISTINCT(material),material_group,authority, period_id, period, tonnes_by_material, total_tonnes 
-FROM dataschool_project.waste_collection_23_25_summary
+FROM dataschool_project.main_waste_collection_23_25
 WHERE TRIM(material) != '';
 
-SELECT * FROM dataschool_project.waste_collection_23_25_summary 
+SELECT * FROM dataschool_project.main_waste_collection_23_25 
 WHERE TRIM(material) = ''; -- check waste stream type
 
 -- General information
 SELECT wc.material,wc.authority, wc.period_id, wc.period, SUM(wc.tonnes_by_material), al.population
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
 WHERE TRIM(wc.material) != ''
 GROUP BY wc.material,wc.authority, wc.period_id, wc.period, al.population;
 
 SELECT wc.authority_id, wc.authority, wc.total_tonnes 
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority = al.authority_name;
 
 SELECT count(wc.authority_id) 
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id; -- 623755
 
 SELECT count(wc.authority_id) 
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority = al.authority_convert; -- 601406
 
@@ -376,35 +379,16 @@ SELECT
     wc.period, 
     ROUND(SUM(wc.tonnes_by_material), 2) as material_tonnes, 
     ROUND((al.population * 100)/@England_population, 2) as population_percentage
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id
 WHERE TRIM(wc.material) != ''
 GROUP BY wc.material,al.authority_convert, al.population, wc.period
 ORDER BY SUM(wc.tonnes_by_material) DESC;
 
--- char 13 is return character
-SET @character13 = CHAR(13);
--- char 10 is line feed
-SET @character10 = CHAR(10);
--- char 9 is tab
-SET @character9 = CHAR(9);
-
--- This query shows what character contains in MaterialGroup
-SELECT material, 
-CASE
-	WHEN material LIKE CONCAT('%', @character13, '%') THEN 'Return'
-	WHEN material LIKE CONCAT('%', @character10, '%') THEN 'Line Feed'
-	WHEN material LIKE CONCAT('%', @character9, '%') THEN 'Tab'
-    ELSE 'Empty'
-END  
-FROM dataschool_project.waste_collection_23_25_summary
-WHERE material LIKE CONCAT('%', @character13, '%') OR 
-	material LIKE CONCAT('%', @character10, '%') OR 
-	material LIKE CONCAT('%', @character9, '%'); 
     
 SELECT count(distinct(wc.authority_id)) 
-FROM dataschool_project.waste_collection_23_25_summary wc
+FROM dataschool_project.main_waste_collection_23_25 wc
 JOIN dataschool_project.authority_locations_lookup al
 ON wc.authority_id = al.authority_id;  -- 321
 
@@ -431,6 +415,53 @@ where output_process_type = 'Treatment unknown';
 -- to differetiate total_tonnes and tonnes by material
 SELECT SUM(total_tonnes), SUM(tonnes_by_material), material, authority FROM dataschool_project.main_waste_collection_2025
 GROUP BY total_tonnes, tonnes_by_material, material, authority;
+
+SELECT count(*) FROM dataschool_project.main_waste_collection_23_25;
+
+SELECT count(distinct(location_code)) FROM dataschool_project.authority_locations_lookup
+where location_code like 'E%';
+
+SELECT SUM(population) FROM dataschool_project.authority_locations_lookup
+where location_code like 'E%';
+
+SELECT * FROM dataschool_project.authority_locations_lookup
+where location_code like 'E%';
+
+SELECT * FROM dataschool_project.authority_locations_lookup
+where location_code like 'E%';
+
+SELECT * FROM dataschool_project.main_waste_collection_23_25
+where waste_processor_id = 0;
+
+SELECT count(distinct(authority_id)) FROM dataschool_project.main_waste_collection_23_25;
+
+SELECT SUM(tonnes_by_material), material_group FROM dataschool_project.main_waste_collection_23_25
+WHERE material_group like '%organic%'
+GROUP BY material_group;
+
+DELETE FROM dataschool_project.main_waste_collection_23_25 
+WHERE waste_processor_id = 0;
+
+SELECT
+    w.authority_id,
+    w.authority,
+    w.material,
+    w.material_group,
+    w.facility_type,
+    w.period_start,
+    w.tonnes_by_material,
+    al.population,
+    al.geography_type
+FROM waste_collection_23_25_summary w
+JOIN authority_locations_lookup al
+    ON w.authority_id = al.authority_id;
+    
+    
+SELECT * FROM dataschool_project.main_waste_collection_23_25 
+WHERE authority LIKE '%london%';
+
+SELECT * FROM dataschool_project.main_waste_collection_23_25 
+WHERE authority LIKE '%london%';
 
 
 

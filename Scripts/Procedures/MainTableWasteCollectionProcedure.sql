@@ -1,3 +1,9 @@
+
+-- ###################################################################
+-- THIS IS THE PROCCEDURE TO CREATE AND LOAD DATA OF ENGLAD WASTE INFORMATION, THIS DATA IS BASED ON LOCAL AUTHORITIES
+-- ###################################################################
+
+
 DELIMITER $$
 
 CREATE PROCEDURE main_waste_collection_table_procedure()
