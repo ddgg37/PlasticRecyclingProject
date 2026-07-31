@@ -14,10 +14,9 @@ Tech Stack
 
 ## Technology used for this project
 
-- Draw.io : To create the Darabase Diagram.
 - Github : Version Control used to upload all Scripts, Resources, Tableau project and Documentation.
 - MySQL : Database used to import/export and transform data into csv file.
-- LibreOffice : To view xls/csv files.
+- MS Excell : To view xls/csv files.
 - Tableau : This is the main tool to create the sheets and Dashboard.
 
 ## Data Origin
